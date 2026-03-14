@@ -1,0 +1,151 @@
+:root {
+	--mobile-top-menu-height: 12vh;
+    --mobile-bottom-menu-height: 12vh;
+    --pc-medium-left-menu-width: 30vw;
+    --pc-right-menu-width: 0vw;
+	
+	--pc-top-header-height: 9vh;
+	--pc-bottom-footer-height: 5vh;
+	--pc-left-menu-width: 100px;
+
+	--mobile-top-header-height: 80px;
+	--mobile-bottom-footer-height: 0px;
+	--mobile-bottom-menu-height: 80px;
+}
+@media all
+{
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	.overflow-auto {
+		overflow: auto;
+		overflow-x: hidden;
+	}
+	.overflow-hidden { overflow: hidden; }
+	.custom-scrollbar::-webkit-scrollbar-track
+	{
+		/* border: 1px solid black; */
+		background-color: #F5F5F5;
+	}
+
+	.custom-scrollbar::-webkit-scrollbar
+	{
+		width: 10px;
+		background-color: #F5F5F5;
+	}
+	.custom-scrollbar::-webkit-scrollbar-thumb
+	{
+		background-color: var(--primary-color);
+	}
+	.container {
+		width: 80%;
+		margin: 0 auto;
+	}
+}
+/* Extra small devices (portrait phones, less than 576px) - Bootstrap -xs */
+@media (max-width: 576px) { 
+	.appName {
+		display: none;
+	}
+	.content{
+		position: absolute;
+		top: var(--mobile-top-header-height);
+		height: calc(100vh - var(--mobile-top-header-height) - var(--mobile-bottom-footer-height) - var(--mobile-bottom-menu-height));
+		width: 100vw;
+		left: 0;
+	}
+	.content.not-logged{
+		height: calc(100vh - var(--mobile-top-header-height) - var(--mobile-bottom-footer-height));
+	}
+	footer{
+		height: var(--mobile-bottom-footer-height);
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		font-size: 12px;
+	}
+}
+
+/* Small devices (landscape phones, 576px and up) - Bootstrap -sm */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+}
+
+/* Medium devices (tablets, 768px and up) - Bootstrap -md */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+	header{
+		height: var(--pc-top-header-height);
+	}
+	footer{
+		height: var(--pc-bottom-footer-height);
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+	}
+	.content{
+		position: absolute;
+		top: var(--pc-top-header-height);
+		height: calc(100vh - var(--pc-top-header-height) - var(--pc-bottom-footer-height));
+		width: 100%;
+		left: var(--pc-left-menu-width);
+		width: calc(100vw - var(--pc-left-menu-width));
+	}
+	.content.not-logged{
+		left: 0;
+		width: 100vw;
+	}
+}
+
+/* Large devices (desktops, 992px and up) - Bootstrap -lg */
+@media (min-width: 992px) and (max-width: 1400px) { 
+	header{
+		height: var(--pc-top-header-height);
+	}
+	footer{
+		height: var(--pc-bottom-footer-height);
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+	}
+	.content{
+		position: absolute;
+		top: var(--pc-top-header-height);
+		height: calc(100vh - var(--pc-top-header-height) - var(--pc-bottom-footer-height));
+		width: 100%;
+		left: var(--pc-left-menu-width);
+		width: calc(100vw - var(--pc-left-menu-width));
+	}
+	.content.not-logged{
+		left: 0;
+		width: 100vw;
+	}
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1400px) { 
+	header{
+		height: var(--pc-top-header-height);
+	}
+	footer{
+		height: var(--pc-bottom-footer-height);
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+	}
+	.content{
+		position: absolute;
+		top: var(--pc-top-header-height);
+		height: calc(100vh - var(--pc-top-header-height) - var(--pc-bottom-footer-height));
+		width: 100%;
+		left: var(--pc-left-menu-width);
+		width: calc(100vw - var(--pc-left-menu-width));
+	}
+	.content.not-logged{
+		left: 0;
+		width: 100vw;
+	}
+}
+
+@media (max-height: 650px) and (orientation:landscape){
+}

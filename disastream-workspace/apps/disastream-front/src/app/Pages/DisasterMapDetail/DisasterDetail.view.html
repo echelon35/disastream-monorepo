@@ -1,0 +1,201 @@
+<div class="z-map w-full h-dvh relative flex">
+
+    <!-- Content Panel (Sidebar) -->
+    <div
+        class="z-on-map-1 w-full lg:w-4/12 h-screen bg-blue-950/95 border-r border-gray-800 flex flex-col shadow-xl overflow-y-scroll relative">
+
+        <!-- Header -->
+        <div class="p-6 pb-4 border-b border-gray-800 sticky top-0 bg-gray-900 z-10 flex items-center gap-4">
+            <button *ngIf="canGoBack" (click)="goBack()"
+                class="p-2 rounded-full border border-gray-700 bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+            </button>
+            <h2 class="text-xl font-semibold text-gray-100 uppercase tracking-wider flex-1">
+                Détails de l'aléa
+            </h2>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="!disaster" class="flex-1 flex items-center justify-center">
+            <app-spinner [width]="'w-16'"></app-spinner>
+        </div>
+
+        <!-- Main Content -->
+        <div *ngIf="disaster" class="p-6">
+
+            <!-- Title Block -->
+            <div class="mb-8">
+                <div class="flex items-center gap-3 mb-2">
+                    <span
+                        class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                        {{ aleaType }}
+                    </span>
+                    <span class="text-gray-400 text-sm font-medium">#{{ aleaId }}</span>
+                </div>
+                <h1 class="text-2xl font-bold text-white leading-tight mt-2">
+                    <span *ngIf="aleaType === 'hurricane'">Cyclone {{ disaster.name }}</span>
+                    <span *ngIf="aleaType === 'earthquake'">Séisme de magnitude {{ disaster.magnitude }}</span>
+                    <span *ngIf="aleaType === 'flood'">Inondation</span>
+                    <span *ngIf="aleaType === 'eruption'">Éruption volcanique</span>
+                </h1>
+            </div>
+
+            <!-- Properties Grid -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
+
+                <div *ngIf="disaster?.magnitude" class="bg-gray-800/50 p-4 rounded-xl border border-gray-700/50">
+                    <p class="text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">Magnitude</p>
+                    <p class="text-white text-lg font-semibold">{{ disaster.magnitude }}</p>
+                </div>
+            </div>
+
+            <!-- Chronology Timeline -->
+            <div class="mt-8">
+                <div class="flex items-center text-indigo-400 mb-6 border-b border-gray-800 pb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <h3 class="font-semibold ml-2 text-lg">Chronologie</h3>
+                </div>
+
+                <div class="flow-root">
+                    <ul role="list" class="-mb-8">
+
+                        <!-- Premier relevé -->
+                        <li *ngIf="disaster.premier_releve">
+                            <div class="relative pb-8">
+                                <span *ngIf="disaster.createdAt || disaster.dernier_releve"
+                                    class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-700"
+                                    aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="flex size-8 items-center justify-center rounded-full bg-gray-700 ring-4 ring-gray-900">
+                                            <svg class="size-4 text-gray-300" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                        <div>
+                                            <p class="text-sm text-gray-400">Premier relevé<span
+                                                    *ngIf="disaster.source?.name"> par <span
+                                                        class="font-medium text-gray-300">{{ disaster.source?.name
+                                                        }}</span></span></p>
+                                        </div>
+                                        <div class="whitespace-nowrap text-right text-xs font-medium text-gray-500">
+                                            <time>{{ disaster.premier_releve | date:"d MMM y 'à' H:mm" }}</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Date Creation -->
+                        <li *ngIf="disaster.createdAt">
+                            <div class="relative pb-8">
+                                <span *ngIf="disaster.premier_releve !== disaster.dernier_releve || disaster.updatedAt"
+                                    class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-700"
+                                    aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="flex size-8 items-center justify-center rounded-full bg-blue-600 ring-4 ring-gray-900 shadow-lg shadow-blue-500/20">
+                                            <svg class="size-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                        <div>
+                                            <p class="text-sm text-gray-400">Enregistré par <span
+                                                    class="font-medium text-gray-200">Disastream</span></p>
+                                        </div>
+                                        <div class="whitespace-nowrap text-right text-xs font-medium text-gray-500">
+                                            <time>{{ disaster.createdAt | date:"d MMM y 'à' H:mm" }}</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Dernier relevé -->
+                        <li *ngIf="disaster.dernier_releve && disaster.premier_releve !== disaster.dernier_releve">
+                            <div class="relative pb-8">
+                                <span *ngIf="disaster.updatedAt"
+                                    class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-700"
+                                    aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="flex size-8 items-center justify-center rounded-full bg-indigo-500 ring-4 ring-gray-900 shadow-lg shadow-indigo-500/20">
+                                            <svg class="size-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                        <div>
+                                            <p class="text-sm text-gray-400">Dernier relevé</p>
+                                        </div>
+                                        <div class="whitespace-nowrap text-right text-xs font-medium text-gray-500">
+                                            <time>{{ disaster.dernier_releve | date:"d MMM y 'à' H:mm" }}</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Updated At -->
+                        <li *ngIf="disaster.updatedAt">
+                            <div class="relative pb-8">
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="flex size-8 items-center justify-center rounded-full bg-green-500 ring-4 ring-gray-900 shadow-lg shadow-green-500/20">
+                                            <svg class="size-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                        <div>
+                                            <p class="text-sm text-gray-400">Dernière mise à jour <span
+                                                    class="font-medium text-gray-300">Disastream</span></p>
+                                        </div>
+                                        <div class="whitespace-nowrap text-right text-xs font-medium text-gray-500">
+                                            <time>{{ disaster.updatedAt | date:"d MMM y 'à' H:mm" }}</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map-disaster-detail" class="flex-1 h-full relative">
+        <app-map [displayLayers]="true" [displayZoom]="true" [mapId]="'map-disaster-detail'" (map$)="receiveMap($event)"
+            [layerPrincipal]="'DisasterDetail'" [scrollZoom]="true" class="w-full h-full"></app-map>
+    </div>
+</div>

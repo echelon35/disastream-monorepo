@@ -1,0 +1,418 @@
+<div [ngClass]="{'lg:w-4/12': !expandPanel, 'lg:w-fit': expandPanel}"
+  class="z-on-map-1 absolute top-14 h-[calc(100%-3.5rem)] p-2 grid-cols-4 gap-4 rounded-md bg-blue-950/95 w-full overflow-y-auto">
+  <div class="mt-2 px-4 sm:px-6 lg:px-8">
+    <div class="mt-6 mb-6 flex justify-between items-center w-full">
+      <a class="text-sm/6 font-semibold text-white hover:text-indigo-400 cursor-pointer" (click)="back()"><span
+          class="pr-2" aria-hidden="true">&larr;</span> Retour</a>
+      @if(!expandPanel){
+      <svg title="Agrandir la fenêtre" (click)="expand(true)"
+        class="text-white cursor-pointer hover:text-indigo-400 hidden lg:block" xmlns="http://www.w3.org/2000/svg"
+        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 15 6 6" />
+        <path d="m15 9 6-6" />
+        <path d="M21 16v5h-5" />
+        <path d="M21 8V3h-5" />
+        <path d="M3 16v5h5" />
+        <path d="m3 21 6-6" />
+        <path d="M3 8V3h5" />
+        <path d="M9 9 3 3" />
+      </svg>
+      }
+      @else{
+      <svg title="Réduire la fenêtre" (click)="expand(false)"
+        class="text-white cursor-pointer hover:text-indigo-400 hidden lg:block" xmlns="http://www.w3.org/2000/svg"
+        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 14 10 14 10 20" />
+        <polyline points="20 10 14 10 14 4" />
+        <line x1="14" x2="21" y1="10" y2="3" />
+        <line x1="3" x2="10" y1="21" y2="14" />
+      </svg>
+      }
+      <svg (click)="closePanel()" class="text-white cursor-pointer hover:text-indigo-400 lg:hidden block"
+        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+    </div>
+    <div class="sm:flex sm:items-center sm:flex-wrap">
+      <div class="sm:flex-auto mb-2">
+        <h1 class="text-base font-semibold text-white">{{alert?.name}}</h1>
+      </div>
+      <div class="flex mt-4 sm:mt-0 sm:flex-none mb-2">
+        <button (click)="zoomOnAlert()" title="Zoom sur l'alerte"
+          class="mr-2 block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" x2="16.65" y1="21" y2="16.65" />
+            <line x1="11" x2="11" y1="8" y2="14" />
+            <line x1="8" x2="14" y1="11" y2="11" />
+          </svg>
+        </button>
+        <a href="/dashboard/alert/edit?id={{alert?.id}}"
+          class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          @if(isExpired()){
+          <span>Réactiver</span>
+          }
+          @else {
+          <span>Editer</span>
+          }
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="py-2 mt-2">
+        @if(isExpired()){
+        <!-- SVG placeholder for expired alert -->
+        <div class="flex items-center space-x-2 mb-2">
+          <svg class="size-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" x2="12" y1="8" y2="12" />
+            <line x1="12" x2="12.01" y1="16" y2="16" />
+          </svg>
+          <p class="text-orange-400 font-semibold">Cette alerte a expiré</p>
+        </div>
+        }
+        @if(!alert?.isActivate){
+        <div class="flex items-center space-x-2">
+          <svg class="size-4 text-red-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5" />
+            <path d="M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7" />
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+            <path d="m2 2 20 20" />
+          </svg>
+          <p class="text-red-400">Cette alerte est actuellement désactivée</p>
+        </div>
+        <button
+          class="rounded-sm bg-green-700 px-2 py-1 mt-2 text-xs font-semibold text-white shadow-xs hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 dark:bg-green-700 dark:shadow-none dark:hover:bg-green-600 dark:focus-visible:outline-green-600"
+          (click)="activateAlert()">Réactiver ?</button>
+        }
+        @else if(alert?.isActivate){
+        <div class="flex items-center space-x-2">
+          <svg class="size-4 text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+            <path d="M4 2C2.8 3.7 2 5.7 2 8" />
+            <path d="M22 8c0-2.3-.8-4.3-2-6" />
+          </svg>
+          <p class="text-green-400">Cette alerte est active</p>
+        </div>
+        <button
+          class="rounded-sm bg-red-700 px-2 py-1 mt-2 text-xs font-semibold text-white shadow-xs hover:bg-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 dark:bg-red-700 dark:shadow-none dark:hover:bg-red-600 dark:focus-visible:outline-red-600"
+          (click)="disableAlert()">Désactiver ?</button>
+        }
+        <p class="mt-2 text-sm text-indigo-400 ">{{allCount}} aléas relevés</p>
+        <p class="text-sm text-gray-400">Créée {{alert?.createdAt | displaydate:true:true}}</p>
+        <p class="text-sm text-gray-400">Dernière maj {{alert?.updatedAt | displaydate:true:true}}</p>
+      </div>
+      <div class="mt-2 text-sm text-gray-400">
+        <p class="mb-2">Type(s) d'aléa(s) : </p>
+        @for(type of (alert?.aleas ?? []); track $index) {
+        <span title="{{type.name}}"
+          class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset text-gray-400 ring-gray-300/20 bg-gray-300/10 mr-2">{{type.label}}</span>
+        }
+      </div>
+      <div class="mt-3 text-sm text-gray-400">
+        <p class="mb-2">Destinataires : </p>
+        @for (mail of (alert?.mailAlerts ?? []); track $index) {
+        <span title="{{mail.isVerified ? 'Mail vérifié' : 'Mail non vérifié'}}" [ngClass]="{
+                'text-red-400 ring-red-400/20 bg-red-400/10': !mail.isVerified,
+                'text-green-400 ring-green-500/20 bg-green-500/10': mail.isVerified
+              }"
+          class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset">{{mail.mail}}</span>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="mt-8 mx-2">
+    <div class="flex gap-3 mb-4">
+      <div class="flex h-6 shrink-0 items-center">
+        <div class="group grid size-4 grid-cols-1">
+          <input [(ngModel)]="strictMode" (change)="changeStrict()" id="comments" type="checkbox" name="comments"
+            aria-describedby="comments-description"
+            class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:checked:border-indigo-500 dark:checked:bg-indigo-500 dark:indeterminate:border-indigo-500 dark:indeterminate:bg-indigo-500 dark:focus-visible:outline-indigo-500 dark:disabled:border-white/5 dark:disabled:bg-white/10 dark:disabled:checked:bg-white/10 forced-colors:appearance-auto" />
+          <svg viewBox="0 0 14 14" fill="none"
+            class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25 dark:group-has-[:disabled]:stroke-white/25">
+            <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="opacity-0 group-has-[:checked]:opacity-100" />
+            <path d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="opacity-0 group-has-[:indeterminate]:opacity-100" />
+          </svg>
+        </div>
+      </div>
+      <div class="text-sm/6">
+        <label for="comments" class="font-medium text-gray-900 dark:text-white">Activer les critères définis</label>
+        <!-- <p id="comments-description" class="text-gray-500 dark:text-gray-400">Get notified when someones posts a comment on a posting.</p> -->
+      </div>
+    </div>
+    <div [ngClass]="{'bg-gray-900/50': strictMode, 'bg-gray-500': !strictMode}"
+      class="mb-4 p-3 rounded-md border border-gray-700">
+      <h4 class="text-sm font-medium text-white mb-2">Critères de l'alerte</h4>
+      @if(alert?.criterias && alert!.criterias.length > 0) {
+      <ul class="space-y-1">
+        @for(criteria of alert?.criterias; track $index) {
+        <li class="text-sm text-gray-300 flex items-center">
+          <span class="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
+          <span class="font-semibold mr-1">{{getAleaLabel(criteria.aleaId) | titlecase}} :</span>
+          {{criteria.field}} <span class="mx-1 text-indigo-300 font-bold">{{criteria.operator}}</span>
+          {{criteria.value}}
+        </li>
+        }
+      </ul>
+      } @else {
+      <p class="text-sm text-gray-500 italic">Aucun critère spécifique défini.</p>
+      }
+    </div>
+    <p class="text-sm text-indigo-400 mb-2">{{count}} résultat(s) correspondant(s) aux critères et filtres</p>
+
+    <table class="min-w-full divide-y divide-gray-300">
+      <thead class="hidden lg:table-header-group">
+        <tr>
+          <th colscope="col" class="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-200 sm:pl-0">
+            <button (click)="orderBy('type')" class="group inline-flex">
+              Type
+              <!-- Active: "bg-gray-200 text-gray-900 group-hover:bg-gray-300", Not Active: "invisible text-gray-400 group-hover:visible group-focus:visible" -->
+              <span [ngClass]="{
+                  'rotate-180': senseOfOrder('type') === 'ASC',
+                  'invisible text-gray-400 group-hover:visible group-focus:visible': currentFilter !== 'type', 
+                  'bg-blue-600 text-gray-900 group-hover:bg-gray-300': currentFilter === 'type'
+                }" class="ml-2 flex-none rounded-sm text-gray-400 size-5">
+                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+          </th>
+          <!-- <th (click)="orderBy('power')" scope="col" class="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-200 sm:pl-0"></th> -->
+          <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-200 lg:table-cell">
+            <button (click)="orderBy('country')" class="group inline-flex">
+              Pays
+              <span [ngClass]="{
+                  'rotate-180': senseOfOrder('country') === 'ASC',
+                  'invisible text-gray-400 group-hover:visible group-focus:visible': currentFilter !== 'country', 
+                  'bg-blue-600 text-gray-900 group-hover:bg-gray-300': currentFilter === 'country'
+                }" class="ml-2 flex-none rounded-sm text-gray-400 size-5">
+                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+          </th>
+          <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-200 lg:table-cell">
+            <button title="Ville d'au moins 10000 habitants la plus proche" (click)="orderBy('city')"
+              class="group inline-flex">
+              <div class="flex items-center">
+                Ville
+                <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 16v-4" />
+                  <path d="M12 8h.01" />
+                </svg>
+              </div>
+              <span [ngClass]="{
+                  'rotate-180': senseOfOrder('city') === 'ASC',
+                  'invisible text-gray-400 group-hover:visible group-focus:visible': currentFilter !== 'city', 
+                  'bg-blue-600 text-gray-900 group-hover:bg-gray-300': currentFilter === 'city'
+                }" class="ml-2 flex-none rounded-sm text-gray-400 size-5">
+                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+          </th>
+          <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-200 sm:table-cell">
+            <button (click)="orderBy('premier_releve')" class="group inline-flex">
+              Premier relevé
+              <span [ngClass]="{
+                  'rotate-180': senseOfOrder('premier_releve') === 'ASC',
+                  'invisible text-gray-400 group-hover:visible group-focus:visible': currentFilter !== 'premier_releve', 
+                  'bg-blue-600 text-gray-900 group-hover:bg-gray-300': currentFilter === 'premier_releve'
+                }" class="ml-2 flex-none rounded-sm text-gray-400 size-5">
+                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+          </th>
+          <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-200 sm:table-cell">
+            <button (click)="orderBy('dernier_releve')" class="group inline-flex">
+              Dernier relevé
+              <!-- Active: "bg-gray-200 text-gray-900 group-hover:bg-gray-300", Not Active: "invisible text-gray-400 group-hover:visible group-focus:visible" -->
+              <span [ngClass]="{
+                  'rotate-180': senseOfOrder('dernier_releve') === 'ASC',
+                  'invisible text-gray-400 group-hover:visible group-focus:visible': currentFilter !== 'dernier_releve', 
+                  'bg-blue-600 text-gray-900 group-hover:bg-gray-300': currentFilter === 'dernier_releve'
+                }" class="ml-2 flex-none rounded-sm text-gray-400 size-5">
+                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hidden lg:table-row">
+          <td></td>
+          <td>
+            <div class="my-2 mx-1 grid grid-cols-1">
+              <input (keyup.enter)="searchCountry()" [(ngModel)]="filterCountry" type="text" name="filter-country"
+                id="filter-country"
+                class="col-start-1 row-start-1 block w-full rounded-md bg-transparent py-1 pr-2 pl-3 text-base text-white outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:pr-9 sm:text-xs"
+                placeholder="Pays">
+              <svg *ngIf="filterCountry === ''" (click)="searchCountry()"
+                class="hover:text-indigo-400 cursor-pointer col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-400 sm:size-4"
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+              </svg>
+              <svg *ngIf="filterCountry !== ''" (click)="clearCountry()"
+                class="hover:text-indigo-400 cursor-pointer col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-400 sm:size-4"
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </div>
+          </td>
+          <td>
+            <div class="my-2 mx-1 grid grid-cols-1">
+              <input (keyup.enter)="searchCity()" [(ngModel)]="filterCity" type="text" name="filter-city"
+                id="filter-city"
+                class="col-start-1 row-start-1 block w-full rounded-md bg-transparent py-1 pr-2 pl-3 text-base text-white outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:pr-9 sm:text-xs"
+                placeholder="Ville">
+              @if(filterCity === ''){
+              <svg (click)="searchCity()"
+                class="hover:text-indigo-400 cursor-pointer col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-400 sm:size-4"
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+              </svg>
+              }
+              @else {
+              <svg (click)="clearCity()"
+                class="hover:text-indigo-400 cursor-pointer col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-400 sm:size-4"
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+              }
+            </div>
+          </td>
+          <td>
+            <input [ngModel]="filterFrom" (change)="searchFrom($event)" type="date" name="filter-from" id="filter-from"
+              class="scheme-light bg-transparent my-2 mx-1 block w-full rounded-md px-3 py-1 text-white outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 text-xs"
+              placeholder="Premier relevé">
+          </td>
+          <td>
+            <input [ngModel]="filterTo" (change)="searchTo($event)" type="date" name="filter-to" id="filter-to"
+              class="scheme-dark bg-transparent my-2 mx-1 block w-full rounded-md px-3 py-1 text-white outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 text-xs"
+              placeholder="Dernier relevé">
+          </td>
+        </tr>
+        @if(load){
+        <tr
+          class="max-w-md p-4 space-y-4 divide-gray-200 rounded-sm shadow-sm animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-20"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-20"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-20"></div>
+          </td>
+        </tr>
+        <tr
+          class="max-w-md p-4 space-y-4 divide-gray-200 rounded-sm shadow-sm animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-20"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-20"></div>
+          </td>
+          <td class="py-4">
+            <div class="mx-auto h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-20"></div>
+          </td>
+        </tr>
+        }
+        @else {
+        @for(hd of historyDisasters; track $index) {
+        <tr (mouseenter)="hoverOnDisaster(hd)" (click)="zoomOnDisaster(hd)"
+          class="hover:bg-indigo-700/20 cursor-pointer">
+          <td class="w-full max-w-0 py-4 px-3 pl-4 text-sm font-medium text-indigo-400 sm:w-auto sm:max-w-none sm:pl-0">
+            <div class="flex items-center">
+              <img title="{{hd.frenchType | titlecase }}" class="size-6" src="{{hd.pictureType}}" />
+              <span class="ml-2">{{hd.power}}</span>
+            </div>
+            <dl class="font-normal lg:hidden">
+              <dt class="sr-only">Localisation</dt>
+              <dd class="mt-1 truncate text-gray-400 flex items-center">
+                <img *ngIf="hd.iso != null" class="w-5 h-3 mr-2" src="{{hd.countryPicture}}" />
+                {{hd.distanceText}} de {{hd.city}}
+              </dd>
+              <dt class="sr-only sm:hidden">Premier relevé</dt>
+              <dd class="mt-1 truncate text-gray-400 sm:hidden">Premier relevé le {{hd.premier_releve |
+                date:'dd/MM/yyyy, H:mm'}}</dd>
+              <dt class="sr-only sm:hidden">Dernier relevé</dt>
+              <dd class="mt-1 truncate text-gray-400 sm:hidden">Dernier relevé le {{hd.dernier_releve |
+                date:'dd/MM/yyyy, H:mm'}}</dd>
+            </dl>
+          </td>
+          <!-- <td class="hidden px-3 py-4 text-sm text-gray-400 lg:table-cell">
+                  <div class="flex items-center">
+                    {{hd.power}}
+                  </div>
+                </td> -->
+          <td class="hidden px-3 py-4 text-sm text-gray-400 lg:table-cell">
+            <img title="{{hd.country}}" *ngIf="hd.iso != null" class="w-5 h-3 mx-auto" src="{{hd.countryPicture}}" />
+          </td>
+          <td class="hidden px-3 py-4 text-sm text-gray-400 lg:table-cell">
+            {{hd.city}} ({{hd.distanceText}})
+          </td>
+          <td class="hidden px-3 py-4 text-sm text-gray-400 sm:table-cell">{{hd.premier_releve | date:'dd/MM/yyyy,
+            H:mm'}}</td>
+          <td class="hidden px-3 py-4 text-sm text-gray-400 sm:table-cell">{{hd.dernier_releve | date:'dd/MM/yyyy,
+            H:mm'}}</td>
+        </tr>
+        }
+        }
+      </tbody>
+    </table>
+    <app-pagination (page$)="changePage($event)" [currentPage]="currentPage" [nbPage]="nbPage"></app-pagination>
+  </div>
+</div>

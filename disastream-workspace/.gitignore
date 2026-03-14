@@ -1,0 +1,143 @@
+node_modules
+/.idea
+/.fleet
+/.vscode
+dist
+out-tsc
+/build
+/coverage
+./test
+.DS_Store
+tmp
+*.log
+jest.debug.config.js
+.tool-versions
+/.nx-cache
+/.nx/cache
+/.nx/workspace-data
+/.verdaccio/build/local-registry
+/graph/client/src/assets/environment.js
+/graph/client/src/assets/dev/environment.js
+/graph/client/src/assets/generated-project-graphs
+/graph/client/src/assets/generated-task-graphs
+/graph/client/src/assets/generated-task-inputs
+/graph/client/src/assets/generated-source-maps
+/nx-dev/nx-dev/public/documentation
+/nx-dev/nx-dev/public/tutorials
+/nx-dev/nx-dev/public/images/open-graph
+
+# Banner JSON files are generated during static builds
+/nx-dev/nx-dev/lib/banner.json
+/astro-docs/src/content/banner.json
+**/tests/temp-db*
+
+# Issues scraper creates these files, stored by github's cache
+/scripts/issues-scraper/cached
+
+# We don't commit a CHANELGELOG.md file to the repo, we only create Github releases
+CHANGELOG.md
+
+# Next.js
+.next
+out
+
+
+# Angular Cache
+.angular
+
+# Astro Cache
+.astro
+
+# Local dev files
+.env.local
+.bashrc
+
+*.node
+
+# Fix for issue when working on the repo in a dev container
+.pnpm-store
+
+.cargo/.package-cache
+.cargo/bin/
+.cargo/env
+.cargo/registry/
+.local/
+.npm/
+.profile
+.rustup/
+target
+.flattened-pom.xml
+dependency-reduced-pom.xml
+*.wasm
+/wasi-sdk*
+
+*.config.timestamp*
+
+storybook-static
+
+# Ignore Gradle project-specific cache directory
+.gradle
+.kotlin
+
+.claude/settings.local.json
+CLAUDE.local.md
+
+.cursor/mcp.json
+
+# Added by Claude Task Master
+# Logs
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dev-debug.log
+# Dependency directories
+node_modules/
+# Environment variables
+.env
+!e2e/dotnet/.env
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.specstory/**
+.cursorindexingignore
+# OS specific
+# Task files
+/tasks.json
+/tasks
+
+# Upstream docs local configuration (machine-specific)
+.upstreamdocs.local.json
+
+# Netlify build artifacts
+.netlify
+
+coverage
+
+# Angular Rspack Specific Options
+packages/angular-rspack/coverage
+packages/angular-rspack-compiler/coverage
+
+# Some Packages use a template to generate the correct README
+packages/angular-rspack/README.md
+packages/angular-rspack-compiler/README.md
+packages/dotnet/README.md
+packages/maven/README.md
+
+test-output
+test-results
+
+# TypeScript build info files
+*.tsbuildinfo
+
+# .NET build output
+/packages/dotnet/analyzer/bin
+/packages/dotnet/analyzer/obj
+/*.deb
+.nx/polygraph/
+.claude/worktrees

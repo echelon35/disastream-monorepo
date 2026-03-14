@@ -1,0 +1,955 @@
+
+<div class="bg-blue-950">
+    <!-- Header -->
+    <header class="absolute inset-x-0 top-0 z-sidebar">
+      <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+          <a href="#" class="-m-1.5 p-1.5">
+            <span class="sr-only">DisaStream</span>
+            <img class="h-8 w-auto" src="/assets/images/svg/logo_disastream.svg" alt="">
+          </a>
+        </div>
+        <div class="flex lg:hidden">
+          <button (click)="toggleSidebar()" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+            <span class="sr-only">Open main menu</span>
+            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12">
+          <a href="#product" class="text-sm/6 font-semibold text-white">Produit</a>
+          <a href="#pricing" class="text-sm/6 font-semibold text-white">Tarifs</a>
+          <a href="#faq" class="text-sm/6 font-semibold text-white">FAQ</a>
+        </div>
+        @if(authStore.isAuthenticated()){
+          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="/dashboard" class="text-sm/6 font-semibold text-white">Dashboard <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        }
+        @else{
+          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="/login" class="text-sm/6 font-semibold text-white">Connexion <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        }
+      </nav>
+      <div 
+      [class.opacity-100]="isSidebarOpen"
+      [class.opacity-0]="!isSidebarOpen"
+      [hidden]="!isSidebarOpen"
+      class="lg:hidden transition-transform ease-in-out duration-300" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 z-sidebar"></div>
+        <div 
+        [class.translate-x-0]="isSidebarOpen"
+        [class.-translate-x-full]="!isSidebarOpen"
+        class="fixed inset-y-0 right-0 z-sidebar w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+          <div class="flex items-center justify-between">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only">Disastream</span>
+              <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="">
+            </a>
+            <button  (click)="toggleSidebar()" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-400">
+              <span class="sr-only">Close menu</span>
+              <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="mt-6 flow-root">
+            <div class="-my-6 divide-y divide-gray-500/25">
+              <div class="space-y-2 py-6">
+                <a href="#product" (click)="toggleSidebar()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800">Produit</a>
+                <a href="#pricing" (click)="toggleSidebar()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800">Tarifs</a>
+                <a href="#faq" (click)="toggleSidebar()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800">FAQ</a>
+              </div>
+              <div class="py-6">
+                <a href="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-800">Connexion</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    <main>
+      <!-- Hero section -->
+      <div class="relative isolate overflow-hidden bg-blue-950 pb-16 pt-14 sm:pb-20">
+        <video class="absolute inset-0 -z-10 size-full object-cover opacity-30" autoplay muted loop id="myVideo" poster="{{s3BasePath}}/background/hurricane.jpg">
+            <source src="/assets/videos/landing.mp4" type="video/mp4">
+        </video>
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div class="text-center">
+              <h1 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">De la nature à votre écran</h1>
+              <p class="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">Restez connectés à la nature.<br>Partout. Tout le temps.</p>
+              <div class="mt-10 flex items-center justify-center gap-x-6">
+                <a href="/auth" class="rounded-md bg-indigo-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Commencer</a>
+                <a href="/#product" class="text-sm/6 font-semibold text-white">En savoir plus <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Logo cloud -->
+          <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-4 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+            <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="assets/images/sources/gdacs_logo.webp" alt="GDACS" width="158" height="48">
+            <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="assets/images/sources/nasa.webp" alt="NASA" width="158" height="48">
+            <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="assets/images/sources/usgs.webp" alt="USGS" width="158" height="48">
+            <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="assets/images/sources/noaa.webp" alt="NOAA" width="158" height="48">
+          </div>
+        </div>
+        <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+          <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+        </div>
+      </div>
+  
+      <!-- Product section -->
+      <div id="product" class="mt-32 sm:mt-56">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="mx-auto max-w-4xl text-center">
+            <h2 class="text-base/7 font-semibold text-indigo-400">Produit</h2>
+            <p class="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">Pourquoi Disastream ?</p>
+          </div>
+          <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">Disastream est la seule application qui vous permet de recevoir des notifications de la nature elle-même.</p>
+        </div>
+        <div class="relative overflow-hidden pt-16">
+          <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <img #featurePicture 
+            [class.opacity-0]="!isFeaturePictureVisible"
+            [class.opacity-100]="isFeaturePictureVisible"
+            src="/assets/images/lp_app_sample.png" alt="Comment ça marche ?" class="pointer-events-none mb-[-15%] rounded-xl shadow-2xl ring-1 ring-offset-blue-950/10 transition-opacity ease-linear duration-500" >
+            <div class="relative" aria-hidden="true">
+              <div class="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-blue-950 pt-[7%]"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
+          <dl class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base/7 text-gray-400 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-200">
+                <!-- <svg class="absolute left-1 top-1 size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clip-rule="evenodd" />
+                </svg> -->
+                <svg class="absolute left-1 top-1 size-5 text-indigo-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8 6-3-6-3v10"/><path d="m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 12"/><path d="m6.49 12.85 11.02 6.3"/><path d="M17.51 12.85 6.5 19.15"/></svg>
+                Surveillez une zone...
+              </dt>
+              <dd class="inline">Vous voulez surveillez un coin spécifique du globe ? Vous pouvez.</dd>
+            </div>
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-200">
+                <svg class="absolute left-1 top-1 size-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></svg>
+                ...Ou le monde entier
+              </dt>
+              <dd class="inline"> Parce que c'est toujours intéressant de savoir ce qu'il se passe ailleurs.</dd>
+            </div>
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-200">
+                <svg class="absolute left-1 top-1 size-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H3"/><path d="M18 8H6"/><path d="M19 12H9"/><path d="M16 16h-6"/><path d="M11 20H9"/></svg>
+                4 aléas disponibles dès à présent
+              </dt>
+              <dd class="inline"> D'autres ultérieurement. Soyez notifiés quand ils seront disponibles.</dd>
+            </div>
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-200">
+                <svg class="absolute left-1 top-1 size-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>
+                Carte interactive
+              </dt>
+              <dd class="inline"> Parce qu'une belle carte vaut toujours mieux qu'un long discours.</dd>
+            </div>
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-200">
+                <svg class="absolute left-1 top-1 size-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+                Des notifications où que vous soyez
+              </dt>
+              <dd class="inline"> Configurez et recevez vos alertes par mail.</dd>
+            </div>
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-200">
+                <svg class="absolute left-1 top-1 size-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17V9"/><path d="M18 17v-3"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M8 17V5"/></svg>
+                Graphiques
+              </dt>
+              <dd class="inline"> Visualisez des statistiques intéressantes sur vos alertes.</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Feature section -->
+
+      <!-- Pricing section -->
+      <div id="pricing" class="py-24 sm:py-32 mt-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="mx-auto max-w-4xl text-center">
+            <h2 class="text-base/7 font-semibold text-indigo-400">Tarifs</h2>
+            <p class="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">Des tarifs adaptés à chaque besoin</p>
+          </div>
+          <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">Choisissez l'offre la plus approprié à vos besoins ou à votre business.</p>
+      
+          <!-- xs to lg -->
+          <div class="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
+            <section class="p-8">
+              <h3 id="tier-basic" class="text-sm/6 font-semibold text-white">Basique</h3>
+              <p class="mt-2 flex items-baseline gap-x-1">
+                <span class="text-4xl font-semibold text-white">Gratuit</span>
+              </p>
+              <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+                <li>
+                  <ul role="list" class="space-y-4">
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span> Alertes customisables sur le pays de votre choix </span>
+                      <span class="text-sm/6 text-gray-400">(2)</span>
+                    </li>
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span>
+                        Un aléa par alerte
+                      </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span>
+                        Carte interactive pour visualiser le résultat de vos alertes
+                      </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span>
+                        Recevez vos alertes par mail
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </section>
+            <section class="rounded-xl bg-white/5 p-8 ring-1 ring-inset ring-white/10">
+              <h3 id="tier-growth" class="text-sm/6 font-semibold text-white">Pack premium</h3>
+              <p class="mt-2 flex items-baseline gap-x-1">
+                <span class="text-4xl font-semibold text-white">3,99€</span>
+                <span class="text-sm font-semibold text-gray-300">/mois</span>
+              </p>
+              <button (click)="subscribe()" aria-describedby="tier-growth" class="w-full mt-8 block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Souscrire</button>
+              <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span> Alertes customisables sur le pays de votre choix </span>
+                  <span class="text-sm/6 text-gray-400">(8)</span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span> Tous les aléas disponibles pour chaque alerte </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Carte interactive pour visualiser le résultat de vos alertes
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Dashboard
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Rapports mensuels
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Recevez vos alertes par mail
+                  </span>
+                </li>
+              </ul>
+            </section>
+            <section class="p-8">
+              <h3 id="tier-scale" class="text-sm/6 font-semibold text-white">Pack Pro</h3>
+              <button (click)="subscribePro()" class="w-full mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Nous contacter</button>
+              <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span> Alertes customisables sur la zone de votre choix ou le monde entier </span>
+                  <span class="text-sm/6 text-gray-400">(30)</span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span> Tous les aléas disponibles pour chaque alerte </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Carte interactive pour visualiser le résultat de vos alertes
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Dashboard
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Rapports mensuels et personnalisés
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Gérez 10 comptes dans la même équipe
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Recevez vos alertes par mail, flux rss ou API
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Accès aux archives
+                  </span>
+                </li>
+              </ul>
+            </section>
+            <section class="p-8">
+              <h3 id="tier-scale" class="text-sm/6 font-semibold text-white">Pack Ultime</h3>
+              <button (click)="subscribePro()" class="w-full mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Nous contacter</button>
+              <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span> Alertes customisables sur la zone de votre choix ou le monde entier </span>
+                  <span class="text-sm/6 text-gray-400">(Illimité)</span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span> Tous les aléas disponibles pour chaque alerte </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Carte interactive pour visualiser le résultat de vos alertes
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Dashboard
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Rapports mensuels et personnalisés
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Membres illimités
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Recevez vos alertes par mail, flux RSS ou API
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Accès aux archives
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Possibilités de grouper des alertes
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Imports CSV de points d'intérêts à surveiller
+                  </span>
+                </li>
+              </ul>
+            </section>
+          </div>
+      
+          <!-- lg+ -->
+          <div class="isolate mt-20 hidden lg:block">
+            <div class="relative -mx-8">
+              <div class="absolute inset-x-5 inset-y-0 -z-10 flex">
+                <div class="flex w-1/5 px-5" style="margin-left: 40%" aria-hidden="true">
+                  <div class="w-full rounded-t-xl border-x border-t border-white/10 bg-white/5"></div>
+                </div>
+              </div>
+              <table class="w-full table-fixed border-separate border-spacing-x-8 text-left">
+                <caption class="sr-only">
+                  Comparaison des plans
+                </caption>
+                <colgroup>
+                  <col class="w-1/5">
+                  <col class="w-1/5">
+                  <col class="w-1/5">
+                  <col class="w-1/5">
+                  <col class="w-1/5">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <td></td>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <h3 id="tier-basic" class="text-lg/8 font-semibold text-white">Basique</h3>
+                    </th>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <h3 id="tier-premium" class="text-lg/8 font-semibold text-indigo-400">Pack Premium</h3>
+                    </th>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <h3 id="tier-pro" class="text-lg/8 font-semibold text-white">Pack Pro</h3>
+                    </th>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <h3 id="tier-god" class="text-lg/8 font-semibold text-white">Pack Ultime</h3>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <p class="mt-4 text-sm/6 text-gray-400 mb-2 ">Pour ceux qui planfient un voyage dans un autre pays.</p>
+                    </th>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <p class="mt-4 text-sm/6 text-gray-400 mb-2">Pour les passionnés qui veulent rester en veille.</p>
+                    </th>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <p class="mt-4 text-sm/6 text-gray-400 mb-2">Pour les entreprises qui veulent être averties avant tout le monde.</p>
+                    </th>
+                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                      <p class="mt-4 text-sm/6 text-gray-400 mb-2">Pour les entreprises avec de grosses équipes, qui ont besoin de surveiller des zones très précises.</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Prices -->
+                  <tr>
+                    <th scope="row"><span class="sr-only">Prix</span></th>
+                    <td class="px-6 pt-2 xl:px-8">
+                      <div class="flex items-baseline gap-x-1 text-white">
+                        <span class="text-4xl font-semibold">Gratuit</span>
+                      </div>
+                    </td>
+                    <td class="px-6 pt-2 xl:px-8">
+                      <div class="flex items-baseline gap-x-1 text-white">
+                        <span class="text-4xl font-semibold">3,99€</span>
+                        <span class="text-sm/6 font-semibold">/mois</span>
+                      </div>
+                      <button (click)="subscribe()" class="w-full mt-8 block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Souscrire</button>
+                    </td>
+                    <td class="px-6 pt-2 xl:px-8">
+                      <button (click)="subscribePro()" class="w-full mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Nous contacter</button>
+                    </td>
+                    <td class="px-6 pt-2 xl:px-8">
+                      <button (click)="subscribePro()" class="w-full mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Nous contacter</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="colgroup" colspan="4" class="pb-4 pt-8 text-sm/6 font-semibold text-white">
+                      Fonctionnalités
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                    </th>
+                  </tr>
+                  <!--Alerts -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Alertes
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">2</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">8</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">30</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Illimitées</div>
+                    </td>
+                  </tr>
+                  <!--Hazards -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Types de risques
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Un par alerte au choix</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Tous</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Tous</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Tous</div>
+                    </td>
+                  </tr>
+                  <!--Alert types -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Types d'alertes
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Pays seulement</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Pays seulement</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Pays, zone ou monde entier</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Pays, zone ou monde entier</div>
+                    </td>
+                  </tr>
+                  <!--Team members -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Equipe (membres)
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">1</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">1</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">10</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Illimités</div>
+                    </td>
+                  </tr>
+      
+                  <tr>
+                    <th scope="colgroup" colspan="4" class="pb-4 pt-16 text-sm/6 font-semibold text-white">
+                      Reporting
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                    </th>
+                  </tr>
+                  <!--Interactive map -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Carte interactive pour visualiser les évènements
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Basic</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Premium</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Pro</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in God</span>
+                    </td>
+                  </tr>
+                  <!--Dashboard -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Dashboard avec statistiques
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Basic</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Premium</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Pro</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in God</span>
+                    </td>
+                  </tr>
+                  <!--Monthly reports -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Rapports mensuels
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Basic</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Premium</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Pro</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in God</span>
+                    </td>
+                  </tr>
+                  <!--Custom reports -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Rapports personnalisés
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Basic</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Premium</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Pro</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in God</span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="colgroup" colspan="4" class="pb-4 pt-16 text-sm/6 font-semibold text-white">
+                      Surveillance
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                    </th>
+                  </tr>
+                  <!-- Alert format -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Mode de réception
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Mail</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Mail</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Mail, RSS ou API</div>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <div class="text-center text-sm/6 text-gray-300">Mail, RSS ou API</div>
+                    </td>
+                  </tr>
+                  <!-- Alert grouping -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Groupes d'alertes
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Basic</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Premium</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Pro</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in God</span>
+                    </td>
+                  </tr>
+                  <!-- Import CSV -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Import CSV de points d'intérêts
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Basic</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Premium</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Pro</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in God</span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="colgroup" colspan="4" class="pb-4 pt-16 text-sm/6 font-semibold text-white">
+                      Archives
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                    </th>
+                  </tr>
+                  <!--Archives access -->
+                  <tr>
+                    <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                      Accès aux archives
+                      <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                    </th>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Basic</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Not included in Premium</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in Pro</span>
+                    </td>
+                    <td class="px-6 py-4 xl:px-8">
+                      <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="sr-only">Included in God</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ section -->
+      <div id="faq" class="mt-32">
+        <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+          <div class="mx-auto max-w-4xl divide-y divide-white/10">
+            <h2 class="text-4xl font-semibold tracking-tight text-white sm:text-5xl">⚡ Foire aux questions</h2>
+            <dl class="mt-10 space-y-6 divide-y divide-white/10">
+              <div *ngFor="let faq of faqs; let i = index" class="pt-6">
+                <dt>
+                  <!-- Expand/collapse question button -->
+                  <button
+                    type="button"
+                    class="flex w-full items-start justify-between text-left text-white"
+                    (click)="toggleFaq(i)"
+                    [attr.aria-controls]="'faq-' + i"
+                    [attr.aria-expanded]="faq.open"
+                  >
+                    <span class="text-base font-semibold">{{ faq.question }}</span>
+                    <span class="ml-6 flex h-7 items-center">
+                      <!-- Icon when question is collapsed -->
+                      <svg
+                        *ngIf="!faq.open"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                      </svg>
+                      <!-- Icon when question is expanded -->
+                      <svg
+                        *ngIf="faq.open"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                      </svg>
+                    </span>
+                  </button>
+                </dt>
+                <dd
+                  [id]="'faq-' + i"
+                  class="overflow-hidden transition-all duration-300 ease-in-out"
+                  [ngClass]="{ 'max-h-0': !faq.open, 'max-h-screen': faq.open }"
+                >
+                  <p class="mt-2 pr-12 text-base text-gray-300" [innerHtml]="faq.answer"></p>
+                </dd>
+              </div>
+            </dl>
+            
+          </div>
+        </div>
+      </div>
+      
+      
+    </main>
+  
+    <!-- Footer -->
+    <footer class="mt-32 bg-gray-900 sm:mt-56">
+      <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
+        <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+          <img class="h-12" src="/assets/images/logo_disastream.png" alt="Company name">
+          <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+            <div class="md:grid md:grid-cols-2 md:gap-8">
+            </div>
+            <div class="md:grid md:grid-cols-2 md:gap-8">
+              <div>
+                <h3 class="text-sm/6 font-semibold text-white">Disastream</h3>
+                <ul role="list" class="mt-6 space-y-4">
+                  <li>
+                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">A propos</a>
+                  </li>
+                  <li>
+                    <a href="/price" class="text-sm/6 text-gray-400 hover:text-white">Tarifs</a>
+                  </li>
+                  <li>
+                    <a href="/faq" class="text-sm/6 text-gray-400 hover:text-white">FAQ</a>
+                  </li>
+                  <!--<li>
+                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Press</a>
+                  </li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+</div>
+  
+  <app-free-modal #free></app-free-modal>
+  <app-pro-pack-modal #pro ></app-pro-pack-modal>

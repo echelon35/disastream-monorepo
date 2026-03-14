@@ -1,0 +1,28 @@
+<div class="flex min-h-full bg-gray-900">
+    <div class="flex flex-1 mw-1/2 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <div class="flex justify-center">
+            <img class="h-20 text-center" src="/assets/images/logo_disastream.png" alt="Logo">
+        </div>
+        @if(loading){
+            <div class="mt-4 flex justify-center">
+                <app-spinner></app-spinner>
+            </div>
+        }
+        @else if(message !== ''){
+            <div class="mt-5 mb-2 text-center space-y-6">
+                <h1 [innerHtml]="message" class="text-white"></h1>
+                <h1 class="text-indigo-400">Envie de créer vous-même vos alertes ?</h1>
+                <button (click)="goRegister()" type="button" class="rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20">Créer mon compte</button>
+            </div>
+        }
+        @else if(error !== ''){
+            <div class="mt-5 mb-2 text-center">
+                <h1 class="text-red-400">{{error}}</h1>
+                <button (click)="resend()" class="mt-4 rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20">Renvoyer un lien</button>
+            </div>
+        }
+    </div>
+    <div class="relative hidden w-0 flex-1 lg:block">
+        <img class="absolute inset-0 size-full object-cover" src="{{s3BasePath}}/background/instability.jpg" alt="">
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{
+  "name": "disastream-api-bff-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["disastream-api-bff"],
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "options": {
+        "jestConfig": "apps/disastream-api-bff-e2e/jest.config.cts",
+        "passWithNoTests": true
+      },
+      "dependsOn": ["disastream-api-bff:build", "disastream-api-bff:serve"]
+    }
+  }
+}

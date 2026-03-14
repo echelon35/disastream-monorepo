@@ -1,0 +1,70 @@
+<div class="flex min-h-full bg-gray-900">
+    <div class="absolute ml-10 mt-6">
+        <a href="/auth" class="text-sm/6 font-semibold text-white hover:text-indigo-400"><span class="pr-2"
+                aria-hidden="true">&larr;</span> Retour</a>
+    </div>
+    <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <div class="mx-auto w-full max-w-sm lg:w-96">
+            <div>
+                <a href="/">
+                    <img class="h-10 w-auto" src="/assets/images/logo_disastream.png" alt="Disastream">
+                </a>
+                <h2 class="mt-8 text-2xl/9 font-bold tracking-tight text-white">Finalisez votre profil</h2>
+                <p class="mt-2 text-sm/6 text-gray-500">
+                    Dernière étape avant de vous joindre à nous via Google
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div>
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+                        <div class="text-red-400 text-sm" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+                        <div class="mt-2">
+                            <input placeholder="Pseudo" formControlName="username" required
+                                class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6">
+                        </div>
+
+                        <div class="relative flex items-start">
+                            <div class="flex h-6 items-center">
+                                <input formControlName="rgpdConsent" name="rgpdConsent" type="checkbox"
+                                    class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            </div>
+                            <div class="ml-3 text-sm/6">
+                                <label for="rgpdConsent" class="font-medium text-gray-400">J'accepte les <a
+                                        class="text-indigo-400" href="#">conditions générales d'utilisation</a> ainsi
+                                    que la <a class="text-indigo-400" href="#">politique de protection des
+                                        données</a></label>
+                            </div>
+                        </div>
+                        <div class="relative flex items-start">
+                            <div class="flex h-6 items-center">
+                                <input formControlName="allowMarketing" name="allowMarketing" type="checkbox"
+                                    class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            </div>
+                            <div class="ml-3 text-sm/6">
+                                <label for="allowMarketing" class="font-medium text-gray-400">J'accepte de recevoir la
+                                    newsletter de {{appName}} pour rester informé des dernières mises à jour</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" [disabled]="registerForm.invalid || !interimToken"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-400 disabled:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Valider</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="relative hidden w-0 flex-1 lg:block">
+        <img class="absolute inset-0 size-full object-cover" src="{{picture.path}}" alt="{{picture.alt}}">
+        <a href="{{picture.authorLink}}"
+            class="text-sm/7 text-gray-400 absolute bottom-0 right-2 hover:text-indigo-400">
+            © {{picture.author}}
+            <span class="sr-only">Crédit photo : {{picture.author}}</span>
+        </a>
+    </div>
+</div>

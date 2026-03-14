@@ -1,0 +1,77 @@
+.cursor-pointer
+{
+    cursor: pointer;
+}
+
+.btn-primary, .btn-secondary, .btn-tertiary, .btn-red, .btn-icon {
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    border: none;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-tertiary:hover {
+    color: #c2bdbd;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-primary:disabled {
+    background-color: var(--white-secondary-color);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-tertiary {
+    background-color: var(--tertiary-color);
+    color: #fff;
+}
+
+.btn-red {
+    background-color: var(--red-color);
+    color: #fff;
+}
+
+.btn-blue {
+    background-color: var(--blue-color);
+    color: #fff;
+}
+
+.sm-btn {
+    height: 40px;
+    font-size: 0.8rem;
+    padding: 10px 20px;
+}
+
+.md-btn {
+    height: 50px;
+    font-size: 1rem;
+    padding: 15px 25px;
+}
+
+.lg-btn {
+    height: 60px;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+}
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+}
+
+.btn-icon:hover:not(:disabled) svg {
+    stroke: var(--white-secondary-color);
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}

@@ -1,0 +1,96 @@
+.modal
+{
+    z-index: 1001;
+    position: fixed;
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+}
+.bg-modal
+{
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    opacity: 0.7;
+}
+.search-country {
+    color: white;
+    background-color: var(--dark-color);
+    border-radius: 5px;
+    height: 40px;
+    border: none;
+}
+.btn-search
+{
+    font-size: 0.8rem;
+}
+input::placeholder{
+    overflow: visible;
+}
+.parent-img{
+    position: relative;
+    height: 150px; 
+    width: 150px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+.parent-img:hover .category-card {
+    border: 8px var(--tertiary-color) solid;
+}
+.category-card
+{
+    position: absolute;
+    border-radius: 10px;
+    background: white;
+    opacity: 0.5;
+}
+@media (max-width:768px){
+    .modal{
+        width: 90%;
+        max-height: 90vh;
+    }
+    .search-country {
+        flex: 1;
+        margin-right: 8px;
+        padding-left: 8px;
+    }
+    .parent-img, .category-card {
+        height: 100px; 
+        width: 100px;
+    }
+}
+@media (min-width:768px){
+    .modal{
+        width: 800px;
+        max-height: 800px;
+    }
+    .search-country {
+        width: 350px;
+        margin-right: 20px;
+        background-image: url("/assets/images/svg/search_input.svg");
+        background-size: calc(1.5em + 2px);
+        background-position: 0.5rem;
+        background-repeat: no-repeat;
+        padding-left: calc(1.5em + .75rem + 5px);
+    }
+    .result-container
+    {
+        max-height: 530px;
+    }
+    .parent-img, .category-card {
+        height: 150px; 
+        width: 150px;
+    }
+}
+.close-btn
+{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}

@@ -1,0 +1,21 @@
+.action-column
+{
+    width: 50px;
+    cursor: pointer;
+}
+.action-column:hover svg {
+    color: var(--primary-color);
+}
+@media (max-width: 768px) { 
+    .title {
+        flex-direction: column;
+    }
+    .title button {
+        margin-top: 20px;
+    }
+}
+@media (min-width: 768px) { 
+    .title {
+        flex-direction: row;
+    }
+}

@@ -1,0 +1,87 @@
+body {
+    background-color: var(--tertiary-color);
+    color: #fff;
+}
+
+.txt-ow-ellipsis { text-overflow: ellipsis; }
+.txt-ow-clip { text-overflow: clip; }
+
+.ws-nowrap { white-space: nowrap; }
+.ws-normal { white-space: normal; }
+
+.text-start {text-align: start;}
+.text-end {text-align: end;}
+.text-center {text-align: center;}
+.text-justify {text-align: justify;}
+
+
+.text-decoration-none {text-decoration: none;}
+.list-style-none { list-style: none; margin-left:0; padding-left:0; }
+.list-style-none li {padding-top:0.5rem;}
+
+.badge-notif { font-family:'Times New Roman', Times, serif;}
+
+/* | TYPOGRAPHY */
+.h1,.h2,.h3,.h4{color: white;}
+.h1,.h2,.h3,.h4,label,a,.btn {letter-spacing: 0.5px;}
+
+@media all and (max-width:576px)
+{
+    h1 {font-size: 1.5em;}
+    h2 {font-size: 1.4em;}
+    h3 {font-size: 1.3em;}
+    h4 {font-size: 1.2em;}
+}
+
+a {text-decoration:none;color:var(--white-tertiary-color);}
+a:hover {color:var(--primary-color);}
+
+input.form-control {
+    height:auto;
+ }
+input::placeholder{
+    overflow: visible;
+}
+
+.rem07{
+    font-size: 0.7rem;
+}
+.rem08{
+    font-size: 0.8rem;
+}
+.rem09{
+    font-size: 0.9rem;
+}
+.rem11{
+    font-size: 1.1rem;
+}
+.rem125{
+    font-size: 1.25rem;
+}
+.rem150{
+    font-size: 1.5rem;
+}
+.rem175{
+    font-size: 1.75rem;
+}
+.rem200{
+    font-size: 2rem;
+}
+
+.w-400{
+    font-weight: 400;
+}
+.w-600{
+    font-weight: 600;
+}
+.w-800{
+    font-weight: 800;
+}
+.w-1000{
+    font-weight: 1000;
+}
+
+.color-red
+{
+    color: var(--red-color);
+}

@@ -1,0 +1,24 @@
+{
+  "name": "disaster-models",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/disaster-models/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs",
+        "main": "libs/disaster-models/src/index.ts",
+        "packageJson": "libs/disaster-models/src/package.json",
+        "tsConfig": "libs/disaster-models/src/tsconfig.lib.json",
+        "assets": [
+          "libs/disaster-models/src/*.md"
+        ]
+      }
+    }
+  }
+}

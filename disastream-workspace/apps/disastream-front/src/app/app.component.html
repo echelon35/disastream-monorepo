@@ -1,0 +1,213 @@
+@if((authStore.isAuthenticated()) && (route.url.startsWith('/dashboard') || route.url.startsWith('/profile') || route.url.startsWith('/admin'))){
+<div>
+  <div class="relative z-sidebar lg:hidden" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-900/80 transition-opacity ease-linear duration-300"
+      [class.opacity-100]="isSidebarOpen" [class.opacity-0]="!isSidebarOpen" [hidden]="!isSidebarOpen"></div>
+
+    <div (click)="toggleSidebar()" (keypress.enter)="toggleSidebar()" tabindex="0"
+      class="fixed inset-0 flex z-sidebar transition-transform ease-in-out duration-300"
+      [class.translate-x-0]="isSidebarOpen" [class.-translate-x-full]="!isSidebarOpen">
+      <div class="relative mr-16 flex w-full max-w-xs flex-1">
+
+        <!-- Sidebar component, swap this element with another sidebar if you like -->
+        <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10">
+          <div class="flex h-16 shrink-0 items-center">
+            <img class="h-8 w-auto" src="/assets/images/svg/logo_disastream.svg" alt="Disastream">
+          </div>
+          <nav class="flex flex-1 flex-col">
+            <ul role="list" class="-mx-2 space-y-1">
+              <li>
+                <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/dashboard"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="group flex gap-x-3 rounded-md bg-gray-800 p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 16v5" />
+                    <path d="M16 14v7" />
+                    <path d="M20 10v11" />
+                    <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" />
+                    <path d="M4 18v3" />
+                    <path d="M8 14v7" />
+                  </svg>
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/dashboard/alert/new"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19.3 14.8C20.1 16.4 21 17 21 17H3s3-2 3-9c0-3.3 2.7-6 6-6 1 0 1.9.2 2.8.7" />
+                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                    <path d="M15 8h6" />
+                    <path d="M18 5v6" />
+                  </svg>
+                  Créer une nouvelle alerte
+                </a>
+              </li>
+              <li>
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/dashboard/map"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" />
+                    <path d="M15 5.764v15" />
+                    <path d="M9 3.236v15" />
+                  </svg>
+                  Carte des aléas
+                </a>
+              </li>
+              @if(isAdmin) {
+              <li>
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/admin"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white cursor-pointer">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  Back-office
+                </a>
+              </li>
+              }
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Static sidebar for desktop -->
+  <div class="hidden lg:fixed lg:inset-y-0 lg:z-sidebar lg:flex lg:w-72 lg:flex-col">
+    <!-- Sidebar component, swap this element with another sidebar if you like -->
+    <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6">
+      <a href="/" class="flex h-16 shrink-0 items-center">
+        <img class="h-8 w-auto" src="/assets/images/svg/logo_disastream.svg" alt="Disastream">
+        <p class="text-white font-bold ml-3">DISASTREAM</p>
+      </a>
+      <nav class="flex flex-1 flex-col">
+        <ul role="list" class="flex flex-1 flex-col gap-y-7">
+          <li>
+            <ul role="list" class="-mx-2 space-y-1">
+              <li>
+                <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/dashboard"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white cursor-pointer">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 16v5" />
+                    <path d="M16 14v7" />
+                    <path d="M20 10v11" />
+                    <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" />
+                    <path d="M4 18v3" />
+                    <path d="M8 14v7" />
+                  </svg>
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/dashboard/alert/new"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white cursor-pointer">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19.3 14.8C20.1 16.4 21 17 21 17H3s3-2 3-9c0-3.3 2.7-6 6-6 1 0 1.9.2 2.8.7" />
+                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                    <path d="M15 8h6" />
+                    <path d="M18 5v6" />
+                  </svg>
+                  Créer une nouvelle alerte
+                </a>
+              </li>
+              <li>
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/dashboard/map"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white cursor-pointer">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" />
+                    <path d="M15 5.764v15" />
+                    <path d="M9 3.236v15" />
+                  </svg>
+                  Carte des aléas
+                </a>
+              </li>
+              @if(isAdmin) {
+              <li>
+                <a routerLinkActive="bg-gray-800 text-white" routerLink="/admin"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white cursor-pointer">
+                  <svg class="size-6 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  Back-office
+                </a>
+              </li>
+              }
+            </ul>
+          </li>
+          <li class="mt-auto mb-10 ml-4">
+            @if(userStore.user()){
+            <a href="/profile" class="group block shrink-0">
+              <div class="flex items-center">
+                <div>
+                  <img class="inline-block size-9 rounded-full" alt="avatar de {{userStore.user().username}}"
+                    title="avatar de {{userStore.user().username}}" src="{{userStore.user().avatar}}" />
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm font-medium text-white group-hover:text-white">{{userStore.user().username |
+                    titlecase}}</p>
+                  <p class="text-xs font-medium text-gray-500 group-hover:text-indigo-400">Mon profil</p>
+                </div>
+              </div>
+            </a>
+            }
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="z-sidebar static top-0 flex items-center gap-x-6 bg-gray-900 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+    <button (click)="toggleSidebar()" type="button" class="-m-2.5 p-2.5 text-gray-400 lg:hidden">
+      <span class="sr-only">Open sidebar</span>
+      <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+        data-slot="icon">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </button>
+    <div class="flex-1 text-sm/6 font-semibold text-white"></div>
+    @if(userStore.user()){
+    <a href="/profile" class="group block shrink-0">
+      <div class="flex items-center">
+        <div>
+          <img class="inline-block size-9 rounded-full" alt="avatar de {{userStore.user().username}}"
+            title="avatar de {{userStore.user().username}}" src="{{userStore.user().avatar}}" />
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-white group-hover:text-white">{{userStore.user().username | titlecase}}</p>
+          <p class="text-xs font-medium text-gray-500 group-hover:text-indigo-400">Mon profil</p>
+        </div>
+      </div>
+    </a>
+    }
+  </div>
+
+  <main class="lg:pl-72 h-screen">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+}
+@else{
+<router-outlet></router-outlet>
+}
+<app-toastr></app-toastr>

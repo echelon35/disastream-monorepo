@@ -1,0 +1,206 @@
+<div class="z-map w-full h-dvh relative">
+    <div id="map-disaster" class="z-map w-full h-[calc(100%-3.5rem)] top-[3.5rem]">
+        <app-map [displayLayers]="false" [displayZoom]="false" [mapId]="'map-disaster'" (map$)="receiveMap($event)" [layerPrincipal]="'Disaster'" [scrollZoom]="true"></app-map>
+    </div>
+    <!-- Menu -->
+    <div class="z-on-map-1 absolute left-1/2 transform -translate-x-1/2 top-0 p-3 grid-cols-4 gap-4 w-full bg-blue-950 rounded-md flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+          <!-- <label 
+          [class.ring]="panel === 'alea'"
+          [class.ring-offset-1]="panel === 'alea'"
+          aria-label="Alea" class="group relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 text-blue-500 ring-current focus:outline-none hover:ring hover:ring-offset-1 ">
+            <input type="radio" name="panel-choice" value="Alea" class="sr-only" (click)="selectPanel('alea')">
+            <span class="z-on-map-2 text-sm rounded-lg absolute opacity-0 group-hover:opacity-100 -bottom-7 bg-white text-black px-2 transition-opacity ease-in-out duration-500">Aléas</span>
+            <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current stroke-white">
+              <svg class="size-6 mx-auto my-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H3"/><path d="M18 8H6"/><path d="M19 12H9"/><path d="M16 16h-6"/><path d="M11 20H9"/></svg>              
+            </span>
+          </label> -->
+          <!-- <label 
+          [class.ring]="panel === 'filters'"
+          [class.ring-offset-1]="panel === 'filters'"
+          aria-label="Filters" class="group relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 text-blue-500 ring-current focus:outline-none hover:ring hover:ring-offset-1 ">
+            <input type="radio" name="panel-choice" value="Filters" class="sr-only" (click)="selectPanel('filters')">
+            <span class="z-on-map-2 text-sm rounded-lg absolute opacity-0 group-hover:opacity-100 -bottom-7 bg-white text-black px-2 transition-opacity ease-in-out duration-500">Filtres</span>
+            <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current stroke-white">
+              <svg class="size-5 mx-auto my-1.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+            </span>
+          </label> -->
+          <label 
+          [class.ring]="panel === 'area'"
+          [class.ring-offset-1]="panel === 'area'"
+          aria-label="Area" class="group relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 text-blue-500 ring-current focus:outline-none hover:ring hover:ring-offset-1 ">
+            <input type="radio" name="panel-choice" value="Area" class="sr-only" (click)="selectPanel('area')">
+            <span class="z-on-map-2 text-sm rounded-lg absolute opacity-0 group-hover:opacity-100 -bottom-7 bg-white text-black px-2 transition-opacity ease-in-out duration-500">Zones</span>
+            <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current stroke-white">
+              <svg class="size-5 mx-auto my-1.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8 6-3-6-3v10"/><path d="m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 12"/><path d="m6.49 12.85 11.02 6.3"/><path d="M17.51 12.85 6.5 19.15"/></svg>
+            </span>
+          </label>
+      </div>
+      <app-search-place-modal [areaMap]="disastersMap"></app-search-place-modal>
+    </div>
+
+    <!-- PANELS -->
+
+    <!-- Alea panel selection-->
+    <!-- <div [class.hidden]="panel !== 'alea'" [class.block]="panel === 'alea'" class="z-on-map-1 absolute top-14 h-[calc(100%-3.5rem)] p-2 grid-cols-4 gap-4 w-auto rounded-md flex flex-col">
+      <div class="flex flex-col items-center">
+            <label 
+            [class.ring]="selectedAleaType === 'earthquake'"
+            [class.ring-offset-1]="selectedAleaType === 'earthquake'"
+            aria-label="Earthquake" class="group relative my-1 flex cursor-pointer items-center justify-center rounded-full p-0.5 text-green-500 ring-current focus:outline-none hover:ring hover:ring-offset-1 ">
+                <input type="radio" name="alea-choice" value="Earthquake" class="sr-only" (click)="selectAlea('earthquake')">
+                <span class="text-sm rounded-lg absolute opacity-0 md:group-hover:opacity-100 left-12 bg-white text-black px-2 transition-opacity ease-in-out duration-500">Séismes</span>
+              <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current">
+                <svg class="size-6 mx-auto my-1" xmlns="http://www.w3.org/2000/svg" width="53.655" height="36.748" viewBox="0 0 53.655 36.748">
+                    <path id="Tracé_164" data-name="Tracé 164" d="M118.662,153.4l-4.915,8.078-4.212-14.3-4.844,14.647-2.036-17.59-.28-.022H100.1l-1.94,13.849L95.709,137H93.095l-2.3,26.6-2.919-27.24h-2.5l-2.725,27.651-1.933-12.183H78.33l-2.14,8.144L73.1,154.7l-7.091,5.2,1.168,2.352,5.08-4.063,4.984,8.419,1.9-7.94L82,170.652h1.612l2.917-25.635,2.84,28.091h2.379l2.831-23.128,2.176,18.343,2.317.069,2.176-14.168,1.755,13.962,2.316-.067,4.212-12.731,3.37,11.841,6.761-11.466Z" transform="translate(-66.011 -136.36)" fill="#b54b2a"/>
+                </svg>              
+              </span>
+            </label>
+            <label aria-label="Hurricane" 
+            [class.ring]="selectedAleaType === 'hurricane'"
+            [class.ring-offset-1]="selectedAleaType === 'hurricane'"
+            class="group relative my-1 flex cursor-pointer items-center justify-center rounded-full p-0.5 text-purple-500 ring-current focus:outline-none hover:ring hover:ring-offset-1 ">
+              <input type="radio" name="alea-choice" value="Hurricane" class="sr-only" (click)="selectAlea('hurricane')">
+              <span class="text-sm rounded-lg absolute opacity-0 group-hover:opacity-100 left-12 bg-white text-black px-2 transition-opacity ease-in-out duration-500">Cyclones</span>
+              <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current">
+                <svg class="size-6 mx-auto my-1" xmlns="http://www.w3.org/2000/svg" width="20.582" height="18.44" viewBox="0 0 20.582 18.44">
+                    <g id="cyclone" transform="translate(0)">
+                      <path id="Tracé_48" data-name="Tracé 48" d="M208.7,55.3c0-4.141-3.747-7.5-8.369-7.5a9.326,9.326,0,0,0-1.922.2L196,55.3l2.412,7.3v1.92c4.622,0,8.369-3.357,8.369-7.5a6.774,6.774,0,0,0-.222-1.722Z" transform="translate(-188.121 -46.079)" fill="#54d8ff"/>
+                      <path id="Tracé_49" data-name="Tracé 49" d="M10.291,0C5.669,0,1.922,3.357,1.922,7.5A6.776,6.776,0,0,0,2.144,9.22H0c0,4.141,3.747,7.5,8.369,7.5a9.326,9.326,0,0,0,1.922-.2Z" fill="#8de5ff"/>
+                      <path id="Tracé_50" data-name="Tracé 50" d="M202.1,114.444h3.447a5.908,5.908,0,0,0-5.211-2.908,6.386,6.386,0,0,0-1.922.293L196,116.739l2.412,4.91a5.874,5.874,0,0,0,2.562-1.608v3.088a5.191,5.191,0,0,0,3.245-4.669A5.006,5.006,0,0,0,202.1,114.444Z" transform="translate(-188.121 -107.519)" fill="#7288ff"/>
+                      <path id="Tracé_51" data-name="Tracé 51" d="M83.14,81.656V78.568a5.191,5.191,0,0,0-3.245,4.669,5.006,5.006,0,0,0,2.121,4.017H78.569a5.908,5.908,0,0,0,5.211,2.908,6.387,6.387,0,0,0,1.922-.293v-9.82A5.874,5.874,0,0,0,83.14,81.656Z" transform="translate(-75.411 -75.738)" fill="#63b0ff"/>
+                      <path id="Tracé_52" data-name="Tracé 52" d="M236.85,214.017a1.667,1.667,0,0,1-1.751,1.569l-.875-1.569.875-1.569A1.667,1.667,0,0,1,236.85,214.017Z" transform="translate(-224.808 -204.797)" fill="#c6f2ff"/>
+                      <path id="Tracé_53" data-name="Tracé 53" d="M214.2,212.448v3.137a1.578,1.578,0,1,1,0-3.137Z" transform="translate(-203.908 -204.797)" fill="#fff"/>
+                    </g>
+                  </svg>              
+              </span>
+            </label>
+            <label aria-label="Flood" 
+            [class.ring]="selectedAleaType === 'flood'"
+            [class.ring-offset-1]="selectedAleaType === 'flood'"
+            class="group relative my-1 flex cursor-pointer items-center justify-center rounded-full p-1 text-blue-700 ring-current focus:outline-none hover:ring hover:ring-offset-1 ">
+              <input type="radio" name="alea-choice" value="Flood" class="sr-only" (click)="selectAlea('flood')">
+              <span class="text-sm rounded-lg absolute opacity-0 group-hover:opacity-100 left-12 bg-white text-black px-2 transition-opacity ease-in-out duration-500">Inondations</span>
+              <span aria-hidden="true" class="size-8 rounded-full border border-black/10 group-hover:border-red/10 bg-current">
+                <svg class="size-6 mx-auto my-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45.925" height="49.468" viewBox="0 0 45.925 49.468">
+                    <defs>
+                      <filter id="Tracé_26" x="0" y="18.962" width="45.925" height="30.505" filterUnits="userSpaceOnUse">
+                        <feOffset dy="3" input="SourceAlpha"/>
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feFlood flood-opacity="0.161"/>
+                        <feComposite operator="in" in2="blur"/>
+                        <feComposite in="SourceGraphic"/>
+                      </filter>
+                    </defs>
+                    <g id="inondation" transform="translate(-54.089 0)">
+                      <path id="Tracé_24" data-name="Tracé 24" d="M78.221.471a1.689,1.689,0,0,0-2.34,0c-1.4,1.57-12.948,15.7-12.948,22.921a14.041,14.041,0,1,0,28.081,0C91.014,16.171,79.469,2.041,78.221.471Z" transform="translate(0)" fill="#ace9fc"/>
+                      <path id="Tracé_25" data-name="Tracé 25" d="M89.3,232.69c-2.34.628-2.652,2.983-5.616,2.983-3.432,0-3.432-3.14-6.708-3.14s-3.432,3.14-6.708,3.14c-2.964,0-3.276-2.355-5.616-2.983a16.281,16.281,0,0,0-1.716,6.123,5.374,5.374,0,0,0,.156,1.57h.468c3.432,0,3.432,3.14,6.708,3.14s3.432-3.14,6.708-3.14,3.432,3.14,6.708,3.14,3.432-3.14,6.708-3.14h.468c0-.471.156-1.1.156-1.57A16.28,16.28,0,0,0,89.3,232.69Z" transform="translate(0 -215.42)" fill="#80cee6"/>
+                      <g transform="matrix(1, 0, 0, 1, 54.09, 0)" filter="url(#Tracé_26)">
+                        <path id="Tracé_26-2" data-name="Tracé 26" d="M85.659,342.34c-3.432,0-3.432-3.14-6.708-3.14s-3.432,3.14-6.708,3.14-3.432-3.14-6.708-3.14h-.468a14.048,14.048,0,0,0,27.925,0h-.468C89.091,339.2,89.091,342.34,85.659,342.34Z" transform="translate(-56.07 -314.24)" fill="#35a0bf"/>
+                      </g>
+                    </g>
+                </svg>
+              </span>
+            </label>
+            <label 
+            [class.ring]="selectedAleaType === 'eruption'"
+            [class.ring-offset-1]="selectedAleaType === 'eruption'"
+            aria-label="Eruption" class="group relative my-1 flex cursor-pointer items-center justify-center rounded-full p-0.5 text-yellow-500 ring-current focus:outline-none hover:ring hover:ring-offset-1">
+              <input type="radio" name="alea-choice" value="Yellow" class="sr-only" (click)="selectAlea('eruption')">
+              <span class="text-sm rounded-lg absolute opacity-0 group-hover:opacity-100 left-12 bg-white text-black px-2 transition-opacity ease-in-out duration-500">Eruptions</span>
+              <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current">
+                <svg class="size-6 mx-auto my-0.5" xmlns="http://www.w3.org/2000/svg" width="39.644" height="39.883" viewBox="0 0 39.644 39.883">
+                    <g id="eruption" transform="translate(0)">
+                      <path id="Tracé_12" data-name="Tracé 12" d="M72.429,321.371h-31.1a1.16,1.16,0,0,1-.988-.554,1.175,1.175,0,0,1-.051-1.137l3.11-6.258a1.165,1.165,0,0,1,.519-.523l2.142-1.077,2.315-4.658a1.163,1.163,0,0,1,.672-.586l3.732-1.251a1.155,1.155,0,0,1,1.012.136l3.088,2.071,3.088-2.071a1.156,1.156,0,0,1,1.011-.136l3.732,1.251a1.164,1.164,0,0,1,.672.586l1.071,2.155,2.142,1.077a1.164,1.164,0,0,1,.519.523l4.354,8.761a1.175,1.175,0,0,1-.051,1.137,1.16,1.16,0,0,1-.988.554Z" transform="translate(-37.057 -281.488)" fill="#233361"/>
+                      <path id="Tracé_13" data-name="Tracé 13" d="M272.538,320.817a1.174,1.174,0,0,0,.051-1.137l-4.354-8.761a1.165,1.165,0,0,0-.519-.523l-2.142-1.077-1.071-2.155a1.163,1.163,0,0,0-.672-.586l-3.732-1.251a1.156,1.156,0,0,0-1.012.136L256,307.535v13.837h15.551A1.16,1.16,0,0,0,272.538,320.817Z" transform="translate(-236.178 -281.488)" fill="#001f49"/>
+                      <g id="Groupe_2" data-name="Groupe 2" transform="translate(0)">
+                        <path id="Tracé_14" data-name="Tracé 14" d="M13.51,118.62a4.875,4.875,0,0,0-6.921,0,3.689,3.689,0,0,0,0,5.192,3.635,3.635,0,0,0,5.163,0,2.558,2.558,0,0,1,3.659.025,1.156,1.156,0,0,0,1.63-.037,1.173,1.173,0,0,0-.012-1.64l-3.518-3.54Z" transform="translate(-5.094 -108.051)" fill="#f74c62"/>
+                        <path id="Tracé_15" data-name="Tracé 15" d="M209.075,2.022a4.224,4.224,0,0,0-7.209,0,4.257,4.257,0,0,0-.185,4.147l2.751,5.535a1.158,1.158,0,0,0,2.078,0l2.751-5.535A4.257,4.257,0,0,0,209.075,2.022Z" transform="translate(-185.648 0)" fill="#f74c62"/>
+                        <path id="Tracé_16" data-name="Tracé 16" d="M178.931,145.243a1.158,1.158,0,0,0-1.558-.523,1.172,1.172,0,0,0-.519,1.568l.622,1.252a1.158,1.158,0,0,0,1.558.523,1.172,1.172,0,0,0,.519-1.568Z" transform="translate(-163.046 -133.333)" fill="#f74c62"/>
+                        <path id="Tracé_17" data-name="Tracé 17" d="M1.584,257.409.34,258.661a1.174,1.174,0,0,0,0,1.652,1.157,1.157,0,0,0,1.643,0l1.244-1.252a1.174,1.174,0,0,0,0-1.652,1.157,1.157,0,0,0-1.643,0Z" transform="translate(0 -237.043)" fill="#f74c62"/>
+                      </g>
+                      <path id="Tracé_18" data-name="Tracé 18" d="M357.326,118.62a4.875,4.875,0,0,1,6.921,0,3.689,3.689,0,0,1,0,5.192,3.635,3.635,0,0,1-5.163,0,2.558,2.558,0,0,0-3.659.025,1.156,1.156,0,0,1-1.63-.037,1.173,1.173,0,0,1,.012-1.64Z" transform="translate(-326.098 -108.051)" fill="#dc1e63"/>
+                      <path id="Tracé_19" data-name="Tracé 19" d="M297.975,145.243a1.158,1.158,0,0,1,1.558-.523,1.172,1.172,0,0,1,.519,1.568l-.622,1.252a1.158,1.158,0,0,1-1.558.523,1.172,1.172,0,0,1-.519-1.568Z" transform="translate(-274.215 -133.333)" fill="#dc1e63"/>
+                      <path id="Tracé_20" data-name="Tracé 20" d="M467.917,257.409l1.244,1.252a1.174,1.174,0,0,1,0,1.652,1.157,1.157,0,0,1-1.643,0l-1.244-1.252a1.173,1.173,0,0,1,0-1.652A1.157,1.157,0,0,1,467.917,257.409Z" transform="translate(-429.857 -237.043)" fill="#dc1e63"/>
+                      <path id="Tracé_21" data-name="Tracé 21" d="M256,12.349a1.161,1.161,0,0,0,1.039-.646l2.751-5.535a4.257,4.257,0,0,0-.186-4.146A4.2,4.2,0,0,0,256,0Z" transform="translate(-236.175 0)" fill="#dc1e63"/>
+                      <path id="Tracé_22" data-name="Tracé 22" d="M153.226,236.032a1.155,1.155,0,0,1-.644-.2l-3.259-2.186-3.193,1.071a1.157,1.157,0,0,1-1.245-.343,1.174,1.174,0,0,1-.161-1.288l3.732-7.509a1.161,1.161,0,0,1,1.039-.646h7.464a1.161,1.161,0,0,1,1.039.646l3.732,7.509a1.174,1.174,0,0,1-.161,1.288,1.157,1.157,0,0,1-1.245.343l-3.193-1.071-3.26,2.186A1.155,1.155,0,0,1,153.226,236.032Z" transform="translate(-133.403 -207.412)" fill="#ff775a"/>
+                      <path id="Tracé_23" data-name="Tracé 23" d="M259.9,233.649l3.193,1.071a1.157,1.157,0,0,0,1.245-.343,1.174,1.174,0,0,0,.161-1.288l-3.732-7.509a1.161,1.161,0,0,0-1.039-.646H256v11.1a1.155,1.155,0,0,0,.644-.2Z" transform="translate(-236.178 -207.412)" fill="#f74c62"/>
+                    </g>
+                </svg>
+              </span>
+            </label>
+      </div>
+    </div> -->
+
+    <!-- Alert panel -->
+    <div [class.hidden]="panel !== 'area'" [class.block]="panel === 'area'" class="z-on-map-1 absolute top-14 h-[calc(100%-3.5rem)] p-2 grid-cols-4 gap-4 rounded-md bg-blue-950/90 w-full lg:w-4/12 overflow-auto">
+      <fieldset>
+        <legend class="sr-only">Alerts</legend>
+        <p class="mt-2 mb-3 pl-2 text-gray-400 font-bold">Mes alertes</p>
+        <div class="space-y-3">
+          <div class="flex gap-3 px-3">
+            <div class="flex h-6 shrink-0 items-center">
+              <div class="group grid size-4 grid-cols-1">
+                <input [checked]="allVisible" id="allAreas" (click)="showAllAlertOnMap()" aria-describedby="all-alerts" name="all" type="checkbox" checked class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                  <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="text-sm/6">
+              <label for="allAreas" class="font-bold text-white cursor-pointer hover:text-blue-500">Afficher toutes</label>
+            </div>
+          </div>
+          @for(alert of alerts;track alert.alert.id){
+            <div class="flex gap-3 px-3 ml-3">
+              <div class="flex h-6 shrink-0 items-center">
+                <div class="group grid size-4 grid-cols-1">
+                  <input [disabled]="alert.alert.areas === null" [checked]="alert.visible" id="{{alert?.alert?.name}}" (click)="showAlertOnMap(alert)" aria-describedby="comments-description" name="comments" type="checkbox" checked class="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto">
+                  <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25" viewBox="0 0 14 14" fill="none">
+                    <path class="opacity-0 group-has-[:checked]:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path class="opacity-0 group-has-[:indeterminate]:opacity-100" d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex items-center text-sm/6">
+                @if(alert?.alert?.areas == null){
+                  <!-- Aucune zone définie, alerte mondiale -->
+                  <svg alt="Monde" title="Alerte mondiale" class="size-5 text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></svg>
+                }
+                @else if(alert?.alert?.areas != null && alert?.alert?.isCountryShape && alert?.alert?.countryId != null){
+                  <!-- Alerte nationale => Affichage du drapeau du pays -->
+                  <img title="{{alert?.country?.namefr}}" class="w-5" src="https://flagcdn.com/{{alert?.country?.iso3166_2 | lowercase }}.svg" />
+                }
+                @else if(alert?.alert?.areas != null && alert?.alert?.isCountryShape && alert?.alert?.countryId == null){
+                  <!-- Alerte nationale sans pays identifié => Affichage d'une icône de drapeau -->
+                  <svg class="size-5 text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  alt="Zone" title="Zone ciblée"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+                }
+                @else if (alert?.alert?.areas != null && !alert?.alert?.isCountryShape) {
+                  <!-- Zone custom -->
+                  <img src="assets/images/svg/custom_zone.svg" class="size-5" alt="Zone" title="Zone personnalisée" />
+                }
+                <label (click)="selectAlert(alert?.alert)" for="{{alert?.alert}}" class="font-medium text-white cursor-pointer hover:text-blue-500 ml-2">{{alert?.alert?.name}}</label>
+                <button (click)="selectAlert(alert?.alert)" class="ml-3 text-red-500" >
+                  Détail
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </fieldset>      
+    </div>
+
+    <!-- Alert detail panel -->
+    <app-detail-alert #detailalert [class.hidden]="panel !== 'detail-alert'" [class.block]="panel === 'detail-alert'" (close$)="closeAlert()" (closePanel$)="closePanel()" (zoomAlert$)="zoomOnAlert($event)" (zoomDisaster$)="zoomOnDisaster($event)" (hoverDisaster$)="hoverOnDisaster($event)"></app-detail-alert>
+
+    <!-- Disaster detail panel -->
+    <app-disaster-detail #detail></app-disaster-detail>
+
+    <!-- Loader -->
+    @if(this.alertsStore.isLoading()){
+      <div class="absolute top-0 left-0 w-full h-full z-modal-bg bg-white opacity-80">
+        <app-spinner [width]="'w-24'" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-on-map-1"></app-spinner>
+      </div>
+    }
+</div>

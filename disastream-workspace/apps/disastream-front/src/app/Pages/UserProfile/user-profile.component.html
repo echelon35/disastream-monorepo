@@ -1,0 +1,150 @@
+<!-- <div class="d-flex align-items-center justify-content-center padding-20">
+    <div class="avatar-container">
+        <img alt="avatar" class="avatar" src="{{user.avatar}}">
+        <div class="avatar-mask"></div>
+        <svg class="avatar-edit" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+    </div>
+    <div class="margin-l20">
+        @if(user.username){
+            <h1>{{user.username | titlecase }}</h1>
+        }
+        @else{
+            <h1>{{user.firstname | titlecase }} {{user.lastname | uppercase}}</h1>
+        }
+        <p>{{user.mail}}</p>
+    </div>
+</div>
+<div class="padding-20 d-flex justify-content-center">
+    <button (click)="logout()" class="btn-icon lg-btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="margin-r10"><path d="M18.36 6.64A9 9 0 0 1 20.77 15"/><path d="M6.16 6.16a9 9 0 1 0 12.68 12.68"/><path d="M12 2v4"/><path d="m2 2 20 20"/></svg>
+        Déconnexion
+    </button>
+</div> -->
+
+<main>
+<h1 class="sr-only">Account Settings</h1>
+
+<header class="border-b border-white/5">
+    <!-- Secondary navigation -->
+    <nav class="flex overflow-x-auto py-4">
+    <ul role="list" class="flex min-w-full flex-none gap-x-6 px-4 text-sm/6 font-semibold text-gray-400 sm:px-6 lg:px-8">
+        <li>
+        <a routerLink="/profile" routerLinkActive="text-indigo-400" class="text-gray-400">Informations</a>
+        </li>
+        <!-- <li>
+        <a routerLink="/profile/notifications" routerLinkActive="text-indigo-400" class="text-gray-400">Notifications</a>
+        </li>
+        <li>
+        <a routerLink="/profile/billing" routerLinkActive="text-indigo-400" class="text-gray-400">Billing</a>
+        </li>
+        <li>
+        <a routerLink="/profile/teams" routerLinkActive="text-indigo-400" class="text-gray-400">Teams</a>
+        </li> -->
+    </ul>
+    </nav>
+</header>
+
+<!-- Settings forms -->
+<div class="divide-y divide-white/5">
+    <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+        <h2 class="text-base/7 font-semibold text-white">Informations personnelles</h2>
+        <p class="mt-1 text-sm/6 text-gray-400">Adresse de réception de vos mails.</p>
+    </div>
+
+    <form class="md:col-span-2">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+        <div class="col-span-full flex items-center gap-x-8">
+            <img src="{{user.avatar}}" alt="" class="size-24 flex-none rounded-lg bg-gray-800 object-cover">
+            <div>
+            <button type="button" class="rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">Changer d'avatar</button>
+            <p class="mt-2 text-xs/5 text-gray-400">JPG, GIF or PNG. 1MB max.</p>
+            </div>
+        </div>
+
+        <div class="sm:col-span-3">
+            <label for="first-name" class="block text-sm/6 font-medium text-white">Prénom</label>
+            <div class="mt-2">
+            <input [ngModel]="user.firstname" type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6">
+            </div>
+        </div>
+
+        <div class="sm:col-span-3">
+            <label for="last-name" class="block text-sm/6 font-medium text-white">Nom</label>
+            <div class="mt-2">
+            <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6">
+            </div>
+        </div>
+
+        <div class="col-span-full">
+            <label for="email" class="block text-sm/6 font-medium text-white">Adresse mail</label>
+            <div class="mt-2">
+            <input disabled [ngModel]="user.mail" id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6">
+            </div>
+        </div>
+
+        <div class="col-span-full">
+            <label for="username" class="block text-sm/6 font-medium text-white">Pseudo</label>
+            <div class="mt-2">
+            <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                <input [ngModel]="user.username" type="text" name="username" id="username" autocomplete="username" class="flex-1 border-0 bg-transparent py-1.5 text-white focus:ring-0 sm:text-sm/6" placeholder="janesmith">
+            </div>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="mt-8 flex">
+        <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Enregistrer</button>
+        </div>
+    </form>
+    </div>
+
+    <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+        <h2 class="text-base/7 font-semibold text-white">Changer de mot de passe</h2>
+        <p class="mt-1 text-sm/6 text-gray-400">Mettre à jour le mot de passe associé au compte.</p>
+    </div>
+
+    <form class="md:col-span-2">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+        <div class="col-span-full">
+            <label for="current-password" class="block text-sm/6 font-medium text-white">Mot de passe actuel</label>
+            <div class="mt-2">
+            <input id="current-password" name="current_password" type="password" autocomplete="current-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6">
+            </div>
+        </div>
+
+        <div class="col-span-full">
+            <label for="new-password" class="block text-sm/6 font-medium text-white">Nouveau mot de passe</label>
+            <div class="mt-2">
+            <input id="new-password" name="new_password" type="password" autocomplete="new-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6">
+            </div>
+        </div>
+
+        <div class="col-span-full">
+            <label for="confirm-password" class="block text-sm/6 font-medium text-white">Confirmer le mot de passe</label>
+            <div class="mt-2">
+            <input id="confirm-password" name="confirm_password" type="password" autocomplete="new-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6">
+            </div>
+        </div>
+        </div>
+
+        <div class="mt-8 flex">
+        <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Enregistrer</button>
+        </div>
+    </form>
+    </div>
+
+    <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+        <h2 class="text-base/7 font-semibold text-white">Déconnexion</h2>
+    </div>
+
+    <form class="flex items-start md:col-span-2">
+        <button (click)="logout()" class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400">Me déconnecter</button>
+    </form>
+    </div>
+</div>
+</main>
+  

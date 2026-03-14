@@ -1,0 +1,787 @@
+<div class="bg-blue-950">
+  <!-- Header -->
+  <header class="absolute inset-x-0 top-0 z-sidebar">
+    <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <div class="flex lg:flex-1">
+        <a href="#" class="-m-1.5 p-1.5">
+          <span class="sr-only">DisaStream</span>
+          <img class="h-8 w-auto" src="/assets/images/svg/logo_disastream.svg" alt="">
+        </a>
+      </div>
+      <div class="flex lg:hidden">
+        <button (click)="toggleSidebar()" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+          <span class="sr-only">Open main menu</span>
+          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+      <div class="hidden lg:flex lg:gap-x-12">
+      </div>
+      <div *ngIf="(isAuthenticated$ | async)" class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <a href="/dashboard" class="text-sm/6 font-semibold text-white">Dashboard <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div *ngIf="(isAuthenticated$ | async) === false" class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <a href="/login" class="text-sm/6 font-semibold text-white">Connexion <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </nav>
+    <div 
+    [class.opacity-100]="isSidebarOpen"
+    [class.opacity-0]="!isSidebarOpen"
+    [hidden]="!isSidebarOpen"
+    class="lg:hidden  transition-transform ease-in-out duration-300" role="dialog" aria-modal="true">
+      <!-- Background backdrop, show/hide based on slide-over state. -->
+      <div class="fixed inset-0 z-sidebar"></div>
+      <div 
+      [class.translate-x-0]="isSidebarOpen"
+      [class.-translate-x-full]="!isSidebarOpen"
+      class="fixed inset-y-0 right-0 z-sidebar w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+        <div class="flex items-center justify-between">
+          <a href="#" class="-m-1.5 p-1.5">
+            <span class="sr-only">Disastream</span>
+            <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="">
+          </a>
+          <button  (click)="toggleSidebar()" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-400">
+            <span class="sr-only">Close menu</span>
+            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="mt-6 flow-root">
+          <div class="-my-6 divide-y divide-gray-500/25">
+            <div class="py-6">
+              <a href="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-800">Connexion</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-4xl text-center">
+        <h2 class="text-base/7 font-semibold text-indigo-400">Tarifs</h2>
+        <p class="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">Des tarifs adaptés à chaque besoin</p>
+      </div>
+      <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">Choisissez l'offre la plus approprié à vos besoins ou à votre business.</p>
+  
+      <!-- xs to lg -->
+      <div class="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
+        <section class="p-8">
+          <h3 id="tier-basic" class="text-sm/6 font-semibold text-white">Basique</h3>
+          <p class="mt-2 flex items-baseline gap-x-1">
+            <span class="text-4xl font-semibold text-white">Gratuit</span>
+          </p>
+          <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+            <li>
+              <ul role="list" class="space-y-4">
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span> Alertes customisables sur le pays de votre choix </span>
+                  <span class="text-sm/6 text-gray-400">(2)</span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Un aléa par alerte
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Carte interactive pour visualiser le résultat de vos alertes
+                  </span>
+                </li>
+                <li class="flex gap-x-3">
+                  <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span>
+                    Recevez vos alertes par mail
+                  </span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section class="rounded-xl bg-white/5 p-8 ring-1 ring-inset ring-white/10">
+          <h3 id="tier-growth" class="text-sm/6 font-semibold text-white">Pack premium</h3>
+          <p class="mt-2 flex items-baseline gap-x-1">
+            <span class="text-4xl font-semibold text-white">3,99€</span>
+            <span class="text-sm font-semibold text-gray-300">/mois</span>
+          </p>
+          <a href="#" aria-describedby="tier-growth" class="mt-8 block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Souscrire</a>
+          <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span> Alertes customisables sur le pays de votre choix </span>
+              <span class="text-sm/6 text-gray-400">(8)</span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span> Tous les aléas disponibles pour chaque alerte </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Carte interactive pour visualiser le résultat de vos alertes
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Dashboard
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Rapports mensuels
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Recevez vos alertes par mail
+              </span>
+            </li>
+          </ul>
+        </section>
+        <section class="p-8">
+          <h3 id="tier-scale" class="text-sm/6 font-semibold text-white">Pack Pro</h3>
+          <p class="mt-2 flex items-baseline gap-x-1">
+            <span class="text-4xl font-semibold text-white">399€</span>
+            <span class="text-sm font-semibold text-gray-300">/mois</span>
+          </p>
+          <a href="#" aria-describedby="tier-scale" class="mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Souscrire</a>
+          <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span> Alertes customisables sur la zone de votre choix ou le monde entier </span>
+              <span class="text-sm/6 text-gray-400">(30)</span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span> Tous les aléas disponibles pour chaque alerte </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Carte interactive pour visualiser le résultat de vos alertes
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Dashboard
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Rapports mensuels et personnalisés
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Gérez 10 comptes dans la même équipe
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Recevez vos alertes par mail, flux rss ou API
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Accès aux archives
+              </span>
+            </li>
+          </ul>
+        </section>
+        <section class="p-8">
+          <h3 id="tier-scale" class="text-sm/6 font-semibold text-white">Pack Ultime</h3>
+          <p class="mt-2 flex items-baseline gap-x-1">
+            <span class="text-4xl font-semibold text-white">699€</span>
+            <span class="text-sm font-semibold text-gray-300">/mois</span>
+          </p>
+          <a href="#" aria-describedby="tier-scale" class="mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Souscrire</a>
+          <ul role="list" class="mt-10 space-y-4 text-sm/6 text-white">
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span> Alertes customisables sur la zone de votre choix ou le monde entier </span>
+              <span class="text-sm/6 text-gray-400">(Illimité)</span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span> Tous les aléas disponibles pour chaque alerte </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Carte interactive pour visualiser le résultat de vos alertes
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Dashboard
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Rapports mensuels et personnalisés
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Membres illimités
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Recevez vos alertes par mail, flux RSS ou API
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Accès aux archives
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Possibilités de grouper des alertes
+              </span>
+            </li>
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Imports CSV de points d'intérêts à surveiller
+              </span>
+            </li>
+          </ul>
+        </section>
+      </div>
+  
+      <!-- lg+ -->
+      <div class="isolate mt-20 hidden lg:block">
+        <div class="relative -mx-8">
+          <div class="absolute inset-x-5 inset-y-0 -z-10 flex">
+            <div class="flex w-1/5 px-5" style="margin-left: 40%" aria-hidden="true">
+              <div class="w-full rounded-t-xl border-x border-t border-white/10 bg-white/5"></div>
+            </div>
+          </div>
+          <table class="w-full table-fixed border-separate border-spacing-x-8 text-left">
+            <caption class="sr-only">
+              Comparaison des plans
+            </caption>
+            <colgroup>
+              <col class="w-1/5">
+              <col class="w-1/5">
+              <col class="w-1/5">
+              <col class="w-1/5">
+              <col class="w-1/5">
+            </colgroup>
+            <thead>
+              <tr>
+                <td></td>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <h3 id="tier-basic" class="text-lg/8 font-semibold text-white">Basique</h3>
+                </th>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <h3 id="tier-premium" class="text-lg/8 font-semibold text-indigo-400">Pack Premium</h3>
+                </th>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <h3 id="tier-pro" class="text-lg/8 font-semibold text-white">Pack Pro</h3>
+                </th>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <h3 id="tier-god" class="text-lg/8 font-semibold text-white">Pack Ultime</h3>
+                </th>
+              </tr>
+              <tr>
+                <td></td>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <p class="mt-4 text-sm/6 text-gray-400 mb-2">Pour ceux qui planfient un voyage dans un autre pays.</p>
+                </th>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <p class="mt-4 text-sm/6 text-gray-400 mb-2">Pour les passionnés qui veulent rester en veille.</p>
+                </th>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <p class="mt-4 text-sm/6 text-gray-400 mb-2">Pour les entreprises qui veulent être averties avant tout le monde.</p>
+                </th>
+                <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                  <p class="mt-4 text-sm/6 text-gray-400 mb-2">Pour les entreprises avec de grosses équipes, qui ont besoin de surveiller des zones très précises.</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Prices -->
+              <tr>
+                <th scope="row"><span class="sr-only">Prix</span></th>
+                <td class="px-6 pt-2 xl:px-8">
+                  <div class="flex items-baseline gap-x-1 text-white">
+                    <span class="text-4xl font-semibold">Gratuit</span>
+                  </div>
+                </td>
+                <td class="px-6 pt-2 xl:px-8">
+                  <div class="flex items-baseline gap-x-1 text-white">
+                    <span class="text-4xl font-semibold">3,99€</span>
+                    <span class="text-sm/6 font-semibold">/mois</span>
+                  </div>
+                  <a href="/free" class="mt-8 block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Souscrire</a>
+                </td>
+                <td class="px-6 pt-2 xl:px-8">
+                  <div class="flex items-baseline gap-x-1 text-white">
+                    <span class="text-4xl font-semibold">399€</span>
+                    <span class="text-sm/6 font-semibold">/mois</span>
+                  </div>
+                  <a href="#" class="mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Souscrire</a>
+                </td>
+                <td class="px-6 pt-2 xl:px-8">
+                  <div class="flex items-baseline gap-x-1 text-white">
+                    <span class="text-4xl font-semibold">699€</span>
+                    <span class="text-sm/6 font-semibold">/mois</span>
+                  </div>
+                  <a href="#" class="mt-8 block rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Souscrire</a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="colgroup" colspan="4" class="pb-4 pt-8 text-sm/6 font-semibold text-white">
+                  Fonctionnalités
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                </th>
+              </tr>
+              <!--Alerts -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Alertes
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">2</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">8</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">30</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Illimitées</div>
+                </td>
+              </tr>
+              <!--Hazards -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Types de risques
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Un par alerte au choix</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Tous</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Tous</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Tous</div>
+                </td>
+              </tr>
+              <!--Alert types -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Types d'alertes
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Pays seulement</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Pays seulement</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Pays, zone personnalisée ou monde entier</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Pays, zone personnalisée ou monde entier</div>
+                </td>
+              </tr>
+              <!--Team members -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Equipe (membres)
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">1</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">1</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">10</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Illimités</div>
+                </td>
+              </tr>
+  
+              <tr>
+                <th scope="colgroup" colspan="4" class="pb-4 pt-16 text-sm/6 font-semibold text-white">
+                  Reporting
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                </th>
+              </tr>
+              <!--Interactive map -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Carte interactive pour visualiser les évènements
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Basic</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Premium</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Pro</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in God</span>
+                </td>
+              </tr>
+              <!--Dashboard -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Dashboard avec statistiques
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Basic</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Premium</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Pro</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in God</span>
+                </td>
+              </tr>
+              <!--Monthly reports -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Rapports mensuels
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Basic</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Premium</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Pro</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in God</span>
+                </td>
+              </tr>
+              <!--Custom reports -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Rapports personnalisés
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Basic</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Premium</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Pro</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in God</span>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="colgroup" colspan="4" class="pb-4 pt-16 text-sm/6 font-semibold text-white">
+                  Surveillance
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                </th>
+              </tr>
+              <!-- Alert format -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Mode de réception
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Mail</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Mail</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Mail, RSS ou API</div>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <div class="text-center text-sm/6 text-gray-300">Mail, RSS ou API</div>
+                </td>
+              </tr>
+              <!-- Alert grouping -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Groupes d'alertes
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Basic</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Premium</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Pro</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in God</span>
+                </td>
+              </tr>
+              <!-- Import CSV -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Import CSV de points d'intérêts
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Basic</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Premium</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Pro</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in God</span>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="colgroup" colspan="4" class="pb-4 pt-16 text-sm/6 font-semibold text-white">
+                  Archives
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                </th>
+              </tr>
+              <!--Archives access -->
+              <tr>
+                <th scope="row" class="py-4 text-sm/6 font-normal text-white">
+                  Accès aux archives
+                  <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                </th>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Basic</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Not included in Premium</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in Pro</span>
+                </td>
+                <td class="px-6 py-4 xl:px-8">
+                  <svg class="mx-auto size-5 text-lime-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="sr-only">Included in God</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-32 bg-gray-900 sm:mt-56">
+    <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
+      <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+        <img class="h-12" src="/assets/images/logo_disastream.png" alt="Company name">
+        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+          </div>
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+            <div>
+              <h3 class="text-sm/6 font-semibold text-white">Disastream</h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a href="#" class="text-sm/6 text-gray-400 hover:text-white">A propos</a>
+                </li>
+                <li>
+                  <a href="/price" class="text-sm/6 text-gray-400 hover:text-white">Tarifs</a>
+                </li>
+                <li>
+                  <a href="/faq" class="text-sm/6 text-gray-400 hover:text-white">FAQ</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

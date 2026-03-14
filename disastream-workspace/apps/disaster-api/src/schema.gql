@@ -1,0 +1,119 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Alea types availables on the db"""
+type Alea {
+  """ID of an alea"""
+  id: ID!
+  name: String!
+  legend: String!
+  disponible: Boolean!
+  keywords: [String!]!
+}
+
+type Source {
+  id: ID!
+  name: String!
+  adress: String!
+}
+
+"""Earthquakes """
+type Earthquake {
+  point: GeoJSONPointScalar!
+  magnitude: Float!
+  id: Int!
+  premier_releve: DateTime!
+  dernier_releve: DateTime!
+  source: Source!
+  idFromSource: String!
+  lien_source: String!
+  nb_ressenti: Int!
+  visible: Boolean!
+  nb_stations: Int!
+  precision: Int!
+  type_magnitude: String!
+  profondeur_epicentre: Int!
+  tsunami: Boolean!
+  intensite: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+scalar GeoJSONPointScalar
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Floods """
+type Flood {
+  point: GeoJSONPointScalar!
+  surface: GeoJSONGeometryScalar
+  id: Int!
+  premier_releve: DateTime!
+  dernier_releve: DateTime!
+  source: Source!
+  idFromSource: String!
+  lien_source: String!
+  nb_ressenti: Int!
+  visible: Boolean!
+  niveau_alerte: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+scalar GeoJSONGeometryScalar
+
+"""Hurricanes"""
+type Hurricane {
+  point: GeoJSONPointScalar!
+  path: GeoJSONMultiLineStringScalar
+  surface: GeoJSONGeometryScalar
+  forecast: GeoJSONGeometryScalar
+  id: Int!
+  premier_releve: DateTime!
+  dernier_releve: DateTime!
+  source: Source!
+  idFromSource: String!
+  lien_source: String!
+  nb_ressenti: Int!
+  visible: Boolean!
+  name: String!
+  vitesse_max: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+scalar GeoJSONMultiLineStringScalar
+
+"""Eruptions"""
+type Eruption {
+  point: GeoJSONPointScalar!
+  surface: GeoJSONGeometryScalar
+  id: Int!
+  premier_releve: DateTime!
+  dernier_releve: DateTime!
+  source: Source!
+  idFromSource: String!
+  lien_source: String!
+  nb_ressenti: Int!
+  visible: Boolean!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Query {
+  aleas: [Alea!]!
+  alea(id: ID!): [Alea!]!
+  earthquakes: [Earthquake!]!
+  earthquake(id: ID!): Earthquake!
+  floods: [Flood!]!
+  flood(id: ID!): Flood!
+  hurricanes: [Hurricane!]!
+  hurricane(id: ID!): Hurricane!
+  eruptions: [Eruption!]!
+  eruption(id: ID!): Eruption!
+}

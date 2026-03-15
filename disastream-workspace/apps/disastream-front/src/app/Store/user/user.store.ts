@@ -3,19 +3,19 @@ import { patchState, signalStore, withComputed, withHooks, withMethods, withProp
 import { initialState } from "./user.state";
 import { pipe, switchMap, tap } from "rxjs";
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { User } from "src/app/Model/User";
-import { UserApiService } from "src/app/Services/UserApiService";
+import { User } from "@src/app/Model/User";
+import { UserApiService } from "@src/app/Services/UserApiService";
 
 export const UserStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    withMethods((store, 
+    withMethods((store,
         userApiService = inject(UserApiService)) => {
         function updateUser(user: User) {
             console.log('Updating user by UserStore:', user);
             patchState(store, { user });
         }
-        const getUser = rxMethod<void> (
+        const getUser = rxMethod<void>(
             pipe(
                 switchMap(() => userApiService.getMyProfile()),
                 tap((user: User) => {
@@ -42,10 +42,10 @@ export const UserStore = signalStore(
         userAvatar$: store.user().avatar
     })),
     withComputed(({ user }) => ({
-        firstname: computed(() => user.firstname != null ? user.firstname() : user.username()),
+        firstname: computed(() => user.firstname != null ? user.firstname : user.username),
     })))
-    withHooks({
-        onInit(store) {
-            store['getUser']();
-        }
-    });
+withHooks({
+    onInit(store) {
+        store['getUser']();
+    }
+});

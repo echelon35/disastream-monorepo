@@ -1,6 +1,22 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": { "baseUrl": "./src", "paths": { "src/*": ["./*"] },
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@env/*": [
+        "./src/environments/*"
+      ],
+      "@src/*": [
+        "./src/*"
+      ],
+      "chart.js/dist/types/utils": [
+        "../../node_modules/chart.js/dist/types/utils.d.ts"
+      ]
+    },
+    "typeRoots": [
+      "../../node_modules/@types"
+    ],
     "strict": false,
     "noImplicitOverride": false,
     "noPropertyAccessFromIndexSignature": true,
@@ -10,7 +26,13 @@
     "target": "es2022",
     "moduleResolution": "bundler",
     "emitDecoratorMetadata": false,
-    "module": "preserve"
+    "module": "es2022",
+    "importHelpers": true,
+    "lib": [
+      "ES2022",
+      "dom",
+      "esnext.asynciterable"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -26,6 +48,6 @@
     },
     {
       "path": "./tsconfig.spec.json"
-    }
+    },
   ]
 }

@@ -8,18 +8,29 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/disastream-front",
         "browser": "apps/disastream-front/src/main.ts",
         "tsConfig": "apps/disastream-front/tsconfig.app.json",
         "assets": [
+          "apps/disastream-front/src/robots.txt",
+          "apps/disastream-front/src/favicon.ico",
           {
             "glob": "**/*",
-            "input": "apps/disastream-front/public"
+            "input": "apps/disastream-front/src/assets",
+            "output": "assets"
           }
         ],
-        "styles": ["apps/disastream-front/src/styles.css"]
+        "styles": [
+          "node_modules/leaflet/dist/leaflet.css",
+          "apps/disastream-front/src/styles.css"
+        ],
+        "allowedCommonJsDependencies": [
+          "leaflet"
+        ]
       },
       "configurations": {
         "production": {

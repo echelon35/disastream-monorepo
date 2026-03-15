@@ -35,7 +35,7 @@ import { AdminModule } from './Modules/admin.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: './.env',
+      envFilePath: './apps/disastream-api-bff/src/.env',
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
@@ -93,4 +93,4 @@ import { AdminModule } from './Modules/admin.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Vi
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FeatureCollection } from "geojson";
-import L from "leaflet";
+import * as L from "leaflet";
 import "@geoman-io/leaflet-geoman-free";
 import { Subject } from "rxjs";
 import { Alea } from "src/app/Model/Alea";

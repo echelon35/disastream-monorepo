@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { AuthentificationApi } from './Services/AuthentificationApi.service';
+import { environment } from '@env/environment';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './Shared/Shared.module';
 import { AuthStore } from './Store/auth/auth.store';

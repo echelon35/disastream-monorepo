@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { FreeModeComponent } from 'src/app/Modals/FreeMode/FreeMode.modal';
 import { ProPacksComponent } from 'src/app/Modals/ProPacks/ProPacks.modal';
 import { AuthentificationApi } from 'src/app/Services/AuthentificationApi.service';

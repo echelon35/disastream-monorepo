@@ -14,10 +14,10 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 
-const env = environment; 
-const API_URL = `${env.settings.disasterapi}`; 
+const env = environment;
+const API_URL = `${env.settings.disasterapi}`;
 const uri = API_URL + '/graphql';
 
 export const appConfig: ApplicationConfig = {
@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
- 
+
       return {
         link: httpLink.create({ uri }),
         cache: new InMemoryCache(),

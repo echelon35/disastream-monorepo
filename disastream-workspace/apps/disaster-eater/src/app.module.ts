@@ -25,7 +25,7 @@ import { NotifierService } from './Application/notifier.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: './.env',
+      envFilePath: './apps/disaster-eater/src/.env',
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({

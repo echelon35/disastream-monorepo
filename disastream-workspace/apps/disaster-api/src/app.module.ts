@@ -15,7 +15,10 @@ import { EruptionsModule } from './Modules/eruptions.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: './apps/disaster-api/src/.env',
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DISASTER_API_DB_HOST,
@@ -46,4 +49,4 @@ import { EruptionsModule } from './Modules/eruptions.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

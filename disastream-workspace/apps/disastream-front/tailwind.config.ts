@@ -3,7 +3,8 @@ import forms from '@tailwindcss/forms';
 
 export default {
   content: [
-    "./src/**/*.{html,ts}",
+    "./src/**/*.{html,ts}", // ng serve
+    "./apps/disastream-front/src/**/*.{html,ts}", // nx serve
   ],
   theme: {
     extend: {

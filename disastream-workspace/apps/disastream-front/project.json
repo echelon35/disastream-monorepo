@@ -13,7 +13,10 @@
       ],
       "options": {
         "outputPath": "dist/apps/disastream-front",
-        "browser": "apps/disastream-front/src/main.ts",
+        "index": "apps/disastream-front/src/index.html",
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/disastream-front/tsconfig.app.json",
         "assets": [
           "apps/disastream-front/src/robots.txt",
@@ -25,7 +28,6 @@
           }
         ],
         "styles": [
-          "node_modules/leaflet/dist/leaflet.css",
           "apps/disastream-front/src/styles.css"
         ],
         "allowedCommonJsDependencies": [
@@ -34,6 +36,12 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/disastream-front/src/environments/environment.ts",
+              "with": "apps/disastream-front/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -51,7 +59,8 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
@@ -74,7 +83,12 @@
     },
     "test": {
       "executor": "@angular/build:unit-test",
-      "options": {}
+      "options": {
+        "lintFilePatterns": [
+          "src/**/*.ts",
+          "src/**/*.html"
+        ]
+      }
     },
     "serve-static": {
       "continuous": true,
@@ -85,6 +99,35 @@
         "staticFilePath": "dist/apps/disastream-front/browser",
         "spa": true
       }
+    }
+  },
+  "cli": {
+    "analytics": "0565266c-cfab-4455-8bcd-f7b004322cb6"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   }
 }

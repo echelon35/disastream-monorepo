@@ -1,0 +1,54 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Alea types availables on the db"""
+type Alea {
+  """ID of an alea"""
+  id: ID!
+}
+
+"""Earthquakes """
+type Earthquake {
+  point: GeoJSONPointScalar!
+  magnitude: Float!
+}
+
+scalar GeoJSONPointScalar
+
+"""Floods """
+type Flood {
+  point: GeoJSONPointScalar!
+  surface: GeoJSONGeometryScalar
+}
+
+scalar GeoJSONGeometryScalar
+
+"""Hurricanes"""
+type Hurricane {
+  point: GeoJSONPointScalar!
+  path: GeoJSONMultiLineStringScalar
+  surface: GeoJSONGeometryScalar
+  forecast: GeoJSONGeometryScalar
+}
+
+scalar GeoJSONMultiLineStringScalar
+
+"""Eruptions"""
+type Eruption {
+  point: GeoJSONPointScalar!
+  surface: GeoJSONGeometryScalar
+}
+
+type Query {
+  aleas: [Alea!]!
+  alea(id: ID!): [Alea!]!
+  earthquakes: [Earthquake!]!
+  earthquake(id: ID!): Earthquake!
+  floods: [Flood!]!
+  flood(id: ID!): Flood!
+  hurricanes: [Hurricane!]!
+  hurricane(id: ID!): Hurricane!
+  eruptions: [Eruption!]!
+  eruption(id: ID!): Eruption!
+}

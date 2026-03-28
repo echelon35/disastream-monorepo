@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compileOnSave": true,
+  "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {

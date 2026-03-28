@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from '../Services/auth.service';
 import { AuthController } from '../Controllers/auth.controller';
 import { LocalStrategy } from '../Strategy/Auth/local.strategy';
@@ -18,10 +19,14 @@ import { GoogleStrategy } from '../Strategy/Auth/google.strategy';
     UserModule,
     LogModule,
     EmailerModule,
-    JwtModule.register({
+    JwtModule.registerAsync({
       global: true,
-      secret: process.env.DISASTREAM_SECRET,
-      signOptions: { expiresIn: '36000s' },
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('DISASTREAM_SECRET') || process.env.DISASTREAM_SECRET,
+        signOptions: { expiresIn: '36000s' },
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [AuthController],

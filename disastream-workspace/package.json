@@ -2,7 +2,12 @@
   "name": "@disastream-workspace/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx run-many -t serve --parallel",
+    "build": "nx run-many -t build --parallel",
+    "test": "nx run-many -t test --parallel",
+    "lint": "nx run-many -t lint --parallel"
+  },
   "private": true,
   "devDependencies": {
     "@angular-devkit/core": "~21.1.0",
@@ -31,8 +36,10 @@
     "@swc-node/register": "~1.11.1",
     "@swc/core": "~1.15.5",
     "@swc/helpers": "~0.5.18",
+    "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "20.19.9",
+    "@types/passport-google-oauth20": "^2.0.17",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
     "@typescript-eslint/utils": "^8.40.0",

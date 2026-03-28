@@ -9,6 +9,9 @@ config();
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+  validate(...args: any[]): unknown {
+    throw new Error('Method not implemented.');
+  }
   constructor(private userService: UserService) {
     super({
       clientID: process.env.GOOGLE_API,

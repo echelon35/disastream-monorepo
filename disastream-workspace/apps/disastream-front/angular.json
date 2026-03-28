@@ -24,13 +24,14 @@
             "assets": [
               "src/robots.txt",
               "src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets"
-              }
+              "src/assets"
             ],
             "styles": [
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/leaflet-draw/dist/leaflet.draw.css",
+              "node_modules/@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css",
+              "node_modules/leaflet.markerclusterv2/dist/markerclusterv2.css",
+              "node_modules/leaflet.markerclusterv2/dist/markerclusverv2.default.css",
               "src/styles.css"
             ],
             "scripts": [],
